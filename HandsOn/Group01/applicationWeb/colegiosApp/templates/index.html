@@ -6,139 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Colegios App {% endblock %}</title>
     <link rel="stylesheet" href="{% static "css/main.css" %}">
+
 </head>
 <body>
 
 <div id="app">
 
-<aside class="aside is-placed-left is-expanded">
-  <div class="menu is-menu-main">
-    <p class="menu-label">General</p>
-    <ul class="menu-list">
-      <li class="active">
-        <a href="{% url 'index' %}">
-          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-          <span class="menu-item-label">Zona Colegios</span>
-        </a>
-      </li>
-    </ul>
-    <ul class="menu-list">
-      <li class="active">
-        <a href="{% url 'municipios' %}">
-          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-          <span class="menu-item-label">Zona Municipios</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</aside>
-
-
-<section class="is-hero-bar">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <h1 class="title">
-      Colegios App
-    </h1>
-  </div>
-</section>
-<section class="is-title-bar">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <ul>
-      <li>App</li>
-      <li>Zona Colegios</li>
-    </ul>
-  </div>
-</section>
-  <section class="section main-section">
-    <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-      <div class="card">
-        <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Nº de colegios
-              </h3>
-              <h1>
-                512
-              </h1>
-            </div>
-            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-          </div>
+    <aside class="aside is-placed-left is-expanded">
+        <div class="menu is-menu-main">
+            <p class="menu-label">General</p>
+            <ul class="menu-list">
+                <li class="active">
+                    <a href="{% url 'index' %}">
+                        <span class="icon"> <i class="mdi mdi-school"></i></span>
+                        <span class="menu-item-label">Zona Colegios</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-list">
+                <li class="active">
+                    <a href="{% url 'municipios' %}">
+                        <span class="icon"><i class="mdi mdi-map"></i></span>
+                        <span class="menu-item-label">Zona Municipios</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Nº de Municipios
-              </h3>
-              <h1>
-                129
-              </h1>
-            </div>
-            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-eye mdi-48px"></i></span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </aside>
 
-    <div class="card mb-6">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-finance"></i></span>
-          Mapa
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="chart-area">
-          <div class="h-full">
-            <div class="chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand">
-                <div></div>
-              </div>
-              <div class="chartjs-size-monitor-shrink">
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-6">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-finance"></i></span>
-          Consultas
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="chart-area">
-          <div class="h-full">
-            <div class="chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand">
-                <div></div>
-              </div>
-              <div class="chartjs-size-monitor-shrink">
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-<footer class="footer">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-    <div class="flex items-center justify-start space-x-3">
-      <div>
-        Realizado por el Grupo 01
-      </div>
+    <section class="is-hero-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+            <h1 class="title">
+                Colegios App
+            </h1>
+        </div>
+    </section>
+    <section class="section main-section">
+        <div class="card mb-6">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon"><i class="mdi mdi-android"></i></span>
+                    Descripción
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="chart-area">
+                    <div class="h-full">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  </div>
-  </div>
-</footer>
+    {% block footer_block %}
+        <!-- Main Footer -->
+        <footer class="text-center footer-style" style="position:fixed; bottom: 1px">
+            <div class="container">
+                <p>Diseñado por el Grupo 01</p>
+            </div>
+        </footer>
+
+    {% endblock %}
 </div>
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </body>
 </html>

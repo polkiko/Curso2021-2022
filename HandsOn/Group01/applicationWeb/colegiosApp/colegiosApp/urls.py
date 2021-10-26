@@ -19,6 +19,7 @@ from django.urls import path
 from colegiosApp import views
 urlpatterns = [
     path('', views.index, name='index'),
+    path('colegios', views.colegios, name='colegios'),
     path('municipios', views.municipios, name='municipios'),
     path('admin/', admin.site.urls),
 ]
