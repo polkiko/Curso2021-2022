@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from HandsOn.Group01.applicationWeb.colegiosApp.colegiosApp import views
-
+from colegiosApp import views
 urlpatterns = [
     path('', views.index, name='index'),
+    path('municipios', views.municipios, name='municipios'),
     path('admin/', admin.site.urls),
 ]

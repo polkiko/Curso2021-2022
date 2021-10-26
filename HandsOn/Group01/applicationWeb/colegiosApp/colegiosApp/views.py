@@ -6,6 +6,8 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, "index.html")
+def municipios(request):
+    return render(request, "municipios.html")
 
 
 
