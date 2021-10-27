@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Colegios App {% endblock %}</title>
     <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body>
 
@@ -108,7 +109,7 @@
                             <div class="field">
                                 <div class="control icons-left">
                                     <label>
-                                        <input class="input" type="text" placeholder="Introduzca un Nombre">
+                                        <input id="nombreColegio" class="input" type="text" placeholder="Introduzca un Nombre">
                                     </label>
                                     <span class="icon left"><i class="mdi mdi-school"></i></span>
                                 </div>
@@ -123,7 +124,8 @@
                             </button>
                         </div>
                         <div class="control">
-                            <button type="reset" class="button red">
+                            <button type="reset" class="button red"
+                                    onclick="document.getElementById('nombreColegio').value = ''" >
                                 Borrar Nombre
                             </button>
                         </div>
