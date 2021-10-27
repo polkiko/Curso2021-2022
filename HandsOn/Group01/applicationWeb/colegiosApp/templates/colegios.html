@@ -36,9 +36,11 @@
 
     <section class="is-hero-bar">
         <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-            <h1 class="title">
-                Colegios App
-            </h1>
+            <a href="{% url 'index' %}">
+                <h1 class="title">
+                    Colegios APP
+                </h1>
+            </a>
         </div>
     </section>
     <section class="is-title-bar">
@@ -63,21 +65,6 @@
                             </h1>
                         </div>
                         <span class="icon widget-icon text-blue-500"><i class="mdi mdi-school mdi-48px"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-content">
-                    <div class="flex items-center justify-between">
-                        <div class="widget-label">
-                            <h3>
-                                Nº de Municipios
-                            </h3>
-                            <h1>
-                                129
-                            </h1>
-                        </div>
-                        <span class="icon widget-icon text-green-500"><i class="mdi mdi-map mdi-48px"></i></span>
                     </div>
                 </div>
             </div>
@@ -113,18 +100,93 @@
                 </p>
             </header>
             <div class="card-content">
-                <div class="chart-area">
-                    <div class="h-full">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div></div>
+                <form method="get">
+                    <!--Nombre del Colegio-->
+                    <div class="field">
+                        <label class="label">Nombre del Colegio</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input class="input" type="text" placeholder="Introduzca un Nombre">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-school"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!--Tipo de Centro-->
+                    <div class="field">
+                        <label class="label">Tipo de Centro</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>Educación Infantil</option>
+                                    <option>Educación Primaria</option>
+                                    <option>Educación Secundaria</option>
+                                    <option>Otros</option>
+                                    <option>Todos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Titularidad del Centro-->
+                    <div class="field">
+                        <label class="label">Titularidad del Centro</label>
+                        <div class="control">
+                            <div class="select">
+                                <select>
+                                    <option>PRIVADO</option>
+                                    <option>PRIVADO CONCERTADO</option>
+                                    <option>PÚBLICO</option>
+                                    <option>PÚBLICO-TITULARIDAD PRIVADA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Municipio-->
+                    <div class="field">
+                        <label class="label">Municipio</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input class="input" type="text" placeholder="Introduzca un Municipio">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-home-city"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Codigo Postal-->
+                    <div class="field">
+                        <label class="label">Código Postal</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input class="input" type="text" placeholder="Introduzca un Código Postal">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-map-marker"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="field grouped">
+                        <div class="control">
+                            <button type="submit" class="button green">
+                                Submit
+                            </button>
+                        </div>
+                        <div class="control">
+                            <button type="reset" class="button red">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
