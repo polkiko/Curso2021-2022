@@ -9,7 +9,7 @@ mappings:
     municipality:
       source:
         - [./CSV/poblacion_distritos-with-links.csv~csv]
-      s: http://dbpedia.org/ontology/Municipality/$(municipio_nombre)
+      s: http://dbpedia.org/page/$(municipio_nombre)
       po:
         - [ a, dbo:Municipality]
         - [ cap:hasNameMunicipality, $(municipio_nombre), xsd:string]
@@ -19,7 +19,7 @@ mappings:
     residentGroup:
         source:
         - [./CSV/poblacion_distritos-with-links.csv~csv]
-        s: http://www.colegiosapp.org/ontology/ResidentGroup/$(municipio_nombre)_$(sexo)_$(min_edad)_$(max_edad)
+        s: http://www.colegiosapp.org/resource/ResidentGroup/$(municipio_nombre)_$(sexo)_$(min_edad)_$(max_edad)
         po:
             - [ a, cap:ResidentGroup]
             - [ cap:hasGender, $(sexo), xsd:string]
@@ -38,7 +38,7 @@ mappings:
     address:
         source:
           - [./CSV/centros_educativos-with-links.csv~csv]
-        s: http://www.colegiosapp.org/ontology/Address/$(direccion_via_tipo)_$(direccion_via_nombre)_$(direccion_numero)_$(direccion_codigo_postal)
+        s: http://www.colegiosapp.org/resource/Address/$(direccion_via_tipo)_$(direccion_via_nombre)_$(direccion_numero)_$(direccion_codigo_postal)
         po:
           - [ a, cap:Address]
           - [ cap:hasNameAddress, $(direccion_via_nombre), xsd:string]
@@ -49,9 +49,10 @@ mappings:
     school:
       source:
         - [./CSV/centros_educativos-with-links.csv~csv ]
-      s: http://dbpedia.org/ontology/School/$(centro_codigo)
+      s: http://dbpedia.org/page/$(centro_nombre)
       po:
         - [ a, dbo:ResidentGroup ]
+        - [ cap:nameSchool, $(centro_nombre), xsd:string ]
         - [ cap:hasTypeSchool , $(centro_tipo_descripcion), xsd:string ]
         - [ cap:idSchool, $(centro_codigo), xsd:string ]
         - [ cap:ownership, $(centro_titularidad), xsd:string ]

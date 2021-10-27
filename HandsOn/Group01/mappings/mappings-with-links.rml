@@ -28,7 +28,7 @@ map:map_school_000 rml:logicalSource map:source_003;
     a rr:TriplesMap;
     rdfs:label "school";
     rr:subjectMap map:s_003;
-    rr:predicateObjectMap map:pom_014, map:pom_015, map:pom_016, map:pom_017, map:pom_018, map:pom_019, map:pom_020, map:pom_021, map:pom_022.
+    rr:predicateObjectMap map:pom_014, map:pom_015, map:pom_016, map:pom_017, map:pom_018, map:pom_019, map:pom_020, map:pom_021, map:pom_022, map:pom_023.
 map:om_000 a rr:ObjectMap;
     rr:constant "http://dbpedia.org/ontology#Municipality";
     rr:termType rr:IRI.
@@ -85,33 +85,37 @@ map:om_014 a rr:ObjectMap;
     rr:constant "http://dbpedia.org/ontology#ResidentGroup";
     rr:termType rr:IRI.
 map:om_015 a rr:ObjectMap;
-    rml:reference "centro_tipo_descripcion";
+    rml:reference "centro_nombre";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
 map:om_016 a rr:ObjectMap;
-    rml:reference "centro_codigo";
+    rml:reference "centro_tipo_descripcion";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
 map:om_017 a rr:ObjectMap;
-    rml:reference "centro_titularidad";
+    rml:reference "centro_codigo";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
 map:om_018 a rr:ObjectMap;
+    rml:reference "centro_titularidad";
+    rr:termType rr:Literal;
+    rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
+map:om_019 a rr:ObjectMap;
     rml:reference "url_colegio";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#anyURI>.
-map:om_019 a rr:ObjectMap;
+map:om_020 a rr:ObjectMap;
     rml:reference "direccion_coor_x";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
-map:om_020 a rr:ObjectMap;
+map:om_021 a rr:ObjectMap;
     rml:reference "direccion_coor_y";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
-map:om_021 a rr:ObjectMap;
+map:om_022 a rr:ObjectMap;
     rr:parentTriplesMap map:map_address_000;
     rr:joinCondition map:jc_000.
-map:om_022 a rr:ObjectMap;
+map:om_023 a rr:ObjectMap;
     rr:parentTriplesMap map:map_municipality_000;
     rr:joinCondition map:jc_001.
 map:pm_000 a rr:PredicateMap;
@@ -145,20 +149,22 @@ map:pm_013 a rr:PredicateMap;
 map:pm_014 a rr:PredicateMap;
     rr:constant rdf:type.
 map:pm_015 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#hasTypeSchool>.
+    rr:constant <http://www.colegiosapp.org/ontology#nameSchool>.
 map:pm_016 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#idSchool>.
+    rr:constant <http://www.colegiosapp.org/ontology#hasTypeSchool>.
 map:pm_017 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#ownership>.
+    rr:constant <http://www.colegiosapp.org/ontology#idSchool>.
 map:pm_018 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#urlSchool>.
+    rr:constant <http://www.colegiosapp.org/ontology#ownership>.
 map:pm_019 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#xCoordinate>.
+    rr:constant <http://www.colegiosapp.org/ontology#urlSchool>.
 map:pm_020 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#yCoordinate>.
+    rr:constant <http://www.colegiosapp.org/ontology#xCoordinate>.
 map:pm_021 a rr:PredicateMap;
-    rr:constant <http://www.colegiosapp.org/ontology#hasAddress>.
+    rr:constant <http://www.colegiosapp.org/ontology#yCoordinate>.
 map:pm_022 a rr:PredicateMap;
+    rr:constant <http://www.colegiosapp.org/ontology#hasAddress>.
+map:pm_023 a rr:PredicateMap;
     rr:constant <http://www.colegiosapp.org/ontology#ownMunicipality>.
 map:pom_000 a rr:PredicateObjectMap;
     rr:predicateMap map:pm_000;
@@ -229,16 +235,19 @@ map:pom_021 a rr:PredicateObjectMap;
 map:pom_022 a rr:PredicateObjectMap;
     rr:predicateMap map:pm_022;
     rr:objectMap map:om_022.
+map:pom_023 a rr:PredicateObjectMap;
+    rr:predicateMap map:pm_023;
+    rr:objectMap map:om_023.
 map:rules_000 a <http://rdfs.org/ns/void#Dataset>;
     <http://rdfs.org/ns/void#exampleResource> map:map_municipality_000, map:map_residentGroup_000, map:map_address_000, map:map_school_000.
 map:s_000 a rr:SubjectMap;
-    rr:template "http://dbpedia.org/ontology/Municipality/{municipio_nombre}".
+    rr:template "http://dbpedia.org/page/{municipio_nombre}".
 map:s_001 a rr:SubjectMap;
-    rr:template "http://www.colegiosapp.org/ontology/ResidentGroup/{municipio_nombre}_{sexo}_{min_edad}_{max_edad}".
+    rr:template "http://www.colegiosapp.org/resource/ResidentGroup/{municipio_nombre}_{sexo}_{min_edad}_{max_edad}".
 map:s_002 a rr:SubjectMap;
-    rr:template "http://www.colegiosapp.org/ontology/Address/{direccion_via_tipo}_{direccion_via_nombre}_{direccion_numero}_{direccion_codigo_postal}".
+    rr:template "http://www.colegiosapp.org/resource/Address/{direccion_via_tipo}_{direccion_via_nombre}_{direccion_numero}_{direccion_codigo_postal}".
 map:s_003 a rr:SubjectMap;
-    rr:template "http://dbpedia.org/ontology/School/{centro_codigo}".
+    rr:template "http://dbpedia.org/page/{centro_nombre}".
 map:source_000 a rml:LogicalSource;
     rml:source "./CSV/poblacion_distritos-with-links.csv";
     rml:referenceFormulation ql:CSV.
