@@ -284,5 +284,33 @@
     "newColumnName": "municipio_wikidata",
     "columnInsertIndex": 10,
     "description": "Create column municipio_wikidata at index 10 based on column municipio_nombre using expression grel:\"https://wikidata.org/entity/\"+cell.recon.match.id"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "direccion_coor_x",
+          "expression": "isNull(value)",
+          "columnName": "direccion_coor_x",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
   }
 ]
