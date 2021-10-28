@@ -82,7 +82,7 @@ map:om_013 a rr:ObjectMap;
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
 map:om_014 a rr:ObjectMap;
-    rr:constant "http://dbpedia.org/ontology#ResidentGroup";
+    rr:constant "http://dbpedia.org/ontology#School";
     rr:termType rr:IRI.
 map:om_015 a rr:ObjectMap;
     rml:reference "centro_nombre";
@@ -247,7 +247,7 @@ map:s_001 a rr:SubjectMap;
 map:s_002 a rr:SubjectMap;
     rr:template "http://www.colegiosapp.org/resource/Address/{direccion_via_tipo}_{direccion_via_nombre}_{direccion_numero}_{direccion_codigo_postal}".
 map:s_003 a rr:SubjectMap;
-    rr:template "http://dbpedia.org/page/{centro_nombre}".
+    rr:template "http://dbpedia.org/page/{centro_nombre}_{centro_codigo}".
 map:source_000 a rml:LogicalSource;
     rml:source "./CSV/poblacion_distritos-with-links.csv";
     rml:referenceFormulation ql:CSV.
