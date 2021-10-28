@@ -62,7 +62,7 @@
                             </h3>
                             <h1>
                                 <a>
-                                    {{ numeroPrueba }}
+                                    {{ nColegios }}
                                 </a>
                             </h1>
 
@@ -137,9 +137,37 @@
                     <div class="field">
                         <label class="label">Resultados</label>
                         <div class="field-body">
-                            <div class="field">
-
+                            {#                            <div class="field">#}
+                            {#                            </div>#}
+                            <div class="card has-table">
+                                <div class="card-content">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Nombre de Colegios</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for field in colList %}
+                                            <tr>
+                                                <td data-label="Name"><a href="{{ field }}">{{ field }} </a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="table-pagination">
+                                        <div class="flex items-center justify-between">
+                                            <div class="buttons">
+                                                <button type="button" class="button active">1</button>
+                                                <button type="button" class="button">2</button>
+                                                <button type="button" class="button">3</button>
+                                            </div>
+                                            <small>Page 1 of 3</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 

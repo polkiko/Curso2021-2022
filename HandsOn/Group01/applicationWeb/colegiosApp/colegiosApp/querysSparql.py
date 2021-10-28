@@ -8,7 +8,7 @@ class Colegios:
     def numColegios(self):
         g = rdflib.Graph()
 
-        g.parse("../../../rdf/output-with-links.nt")
+        g.parse("../../rdf/output-with-links.nt")
 
         q = """
                 PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -22,14 +22,13 @@ class Colegios:
                 }
                 """
         gres = g.query(q)
-        resultado = []
         for row in gres:
             return row[0]
 
     def nombreColegio(self, nombre):
         g = rdflib.Graph()
 
-        g.parse("../../../rdf/output-with-links.nt")
+        g.parse("../../rdf/output-with-links.nt")
 
         q = f"""
         PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -49,8 +48,3 @@ class Colegios:
             print(row[0])
             resultado.append(row[0])
         return resultado
-
-#
-# aux = Colegios()
-# # print(aux.nombreColegio("LOS"))
-# print(aux.numColegios())

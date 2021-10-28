@@ -14,15 +14,16 @@ def municipios(request):
 
 
 def colegios(request):
+    from .querysSparql import Colegios
+    colegioAux = Colegios()
     if request.method == "POST":
         if request.POST["action"] == "1":
             colegio = request.POST["nombreColegio"]
             print("Nombre colegio:", colegio)
-            #buscar datos nombre de colegio con sparql
-            aux = ['colegio 1', 'colegio 2', 'colegio 3']
-            return render(request, "colegios.html", {'colList': aux})
+            nameColegios = colegioAux.nombreColegio(colegio)
+            return render(request, "colegios.html", {'colList': nameColegios})
         else:
             print("Form buscar colegio")
 
-    numeroPrueba = "11"
-    return render(request, "colegios.html", {'numeroPrueba': numeroPrueba})
+    nColegios = colegioAux.numColegios()
+    return render(request, "colegios.html", {'nColegios': nColegios})
