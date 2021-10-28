@@ -24,9 +24,7 @@ class Colegios:
         gres = g.query(q)
         resultado = []
         for row in gres:
-            print(row[0])
-            resultado.append(row[0])
-        return resultado
+            return row[0]
 
     def nombreColegio(self, nombre):
         g = rdflib.Graph()
@@ -52,7 +50,7 @@ class Colegios:
             resultado.append(row[0])
         return resultado
 
-
-aux = Colegios()
-# print(aux.nombreColegio("LOS"))
-print(aux.numColegios())
+#
+# aux = Colegios()
+# # print(aux.nombreColegio("LOS"))
+# print(aux.numColegios())
