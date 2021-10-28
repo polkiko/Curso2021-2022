@@ -101,7 +101,9 @@
                 </p>
             </header>
             <div class="card-content">
-                <form method="get">
+                <form method="post">
+                    {% csrf_token %}
+                    <input name="action" type="hidden" value="1">
                     <!--Nombre del Colegio-->
                     <div class="field">
                         <label class="label">Nombre del Colegio</label>
@@ -109,7 +111,7 @@
                             <div class="field">
                                 <div class="control icons-left">
                                     <label>
-                                        <input id="nombreColegio" class="input" type="text" placeholder="Introduzca un Nombre">
+                                        <input name="nombreColegio" id="nombreColegio" class="input" type="text" placeholder="Introduzca un Nombre">
                                     </label>
                                     <span class="icon left"><i class="mdi mdi-school"></i></span>
                                 </div>
@@ -134,7 +136,9 @@
             </div>
             <hr>
             <div class="card-content">
-                <form method="get">
+                <form method="post">
+                    {% csrf_token %}
+                    <input name="action" type="hidden" value="2">
                     <!--Tipo de Centro-->
                     <div class="field">
                         <label class="label">Tipo de Centro</label>

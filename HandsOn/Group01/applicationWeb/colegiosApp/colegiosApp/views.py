@@ -13,4 +13,11 @@ def municipios(request):
 
 
 def colegios(request):
+    if request.method == "POST":
+        print("Estoy en POST")
+        if request.POST["action"] == "1":
+            print("Form nombre")
+            print("Nombre colegio:", request.POST["nombreColegio"])
+        else:
+            print("Form buscar colegio")
     return render(request, "colegios.html")
