@@ -49,9 +49,9 @@ mappings:
     school:
       source:
         - [./CSV/centros_educativos-with-links.csv~csv ]
-      s: http://dbpedia.org/page/$(centro_nombre)
+      s: http://dbpedia.org/page/$(centro_nombre)_$(centro_codigo)
       po:
-        - [ a, dbo:ResidentGroup ]
+        - [ a, dbo:School ]
         - [ cap:nameSchool, $(centro_nombre), xsd:string ]
         - [ cap:hasTypeSchool , $(centro_tipo_descripcion), xsd:string ]
         - [ cap:idSchool, $(centro_codigo), xsd:string ]
