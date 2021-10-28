@@ -143,13 +143,17 @@
                                     <table id="nombreCol">
                                         <thead>
                                         <tr>
-                                            <th>Nombre de Colegios</th>
+                                            <th>Nombre</th>
+                                            <th>Calle</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for field in colList %}
+                                        {% for key, value in colList.items %}
                                             <tr>
-                                                <td data-label="Name"><a href="{{ field }}">{{ field }} </a></td>
+                                            {% for colegio in value %}
+                                                    <td data-label="Name"><a
+                                                            href="{{ colegio }}">{{ colegio }} </a></td>
+                                            {% endfor %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>
