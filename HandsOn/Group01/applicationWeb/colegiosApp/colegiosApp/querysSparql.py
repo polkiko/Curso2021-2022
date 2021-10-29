@@ -5,8 +5,8 @@ from rdflib.plugins.sparql import prepareQuery
 
 class Colegios:
     def __init__(self):
-        self.tipoCentro = {'Todos': 1, 'Otros': 2, 'Educación Infantil': 3, 'Educación Primaria': 4, 'Educación '
-                                                                                                     'Secundaria': 5}
+        self.tipoCentro = {'Todos': 1, 'Otros': 2, 'Educación Infantil': 'INFANTIL', 'Educación Primaria': 'PRIMARIA',
+                           'Educación Secundaria': 'SECUNDARIA'}
         self.titCentro = {'Todos': 1, 'Privado': 2, 'Privado Concertado': 3, 'Público': 4,
                           'Público-Titularidad Privada': 5}
 
@@ -69,7 +69,7 @@ class Colegios:
     def colegiosCoord(self):
         g = rdflib.Graph()
 
-        g.parse("../../../rdf/output-with-links.nt")
+        g.parse("../../rdf/output-with-links.nt")
 
         q = """
         PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>

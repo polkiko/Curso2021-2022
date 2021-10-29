@@ -61,7 +61,7 @@
                                 Nº de Municipios
                             </h3>
                             <h1>
-                                129
+                                179
                             </h1>
                         </div>
                         <span class="icon widget-icon text-green-500"><i class="mdi mdi-map mdi-48px"></i></span>
@@ -73,45 +73,117 @@
         <div class="card mb-6">
             <header class="card-header">
                 <p class="card-header-title">
-                    <span class="icon"><i class="mdi mdi-map"></i></span>
-                    Mapa
-                </p>
-            </header>
-            <div class="card-content">
-                <div class="chart-area">
-                    <div class="h-full">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-6">
-            <header class="card-header">
-                <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-database-search"></i></span>
-                    Consultas con Municipios
+                    Consulte la población de los Municipios de Madrid
                 </p>
             </header>
             <div class="card-content">
-                <div class="chart-area">
-                    <div class="h-full">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div></div>
+                <form method="post">
+                    {% csrf_token %}
+                    <!--Nombre Municipio-->
+                    <div class="field">
+                        <label class="label">Nombre del Municipio</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input name="nMunicipio" id="nMunicipio" class="input" type="text"
+                                               placeholder="Introduzca un Nombre">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-home-city"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!--Sexo-->
+                    <div class="field">
+                        <label class="label">Sexo</label>
+                        <div class="control">
+                            <div class="select">
+                                <label>
+                                    <select name="sexoM" id="sexoM">
+                                        <option>Hombre</option>
+                                        <option>Mujer</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Edad Mínima-->
+                    <div class="field">
+                        <label class="label">Edad Mínima</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input name="edadMin" id="edadMin" class="input" type="number"
+                                               placeholder="Introduzca la edad mínima" min="0" max="199">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-counter"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Edad Máxima-->
+                    <div class="field">
+                        <label class="label">Edad Máxima</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input name="edadMax" id="edadMax" class="input" type="number"
+                                               placeholder="Introduzca la edad máxima" min="0" max="199">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-counter"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="field grouped">
+                        <div class="control">
+                            <button type="submit" class="button green">
+                                Buscar
+                            </button>
+                        </div>
+                        <div class="control">
+                            <button type="reset" class="button red">
+                                Borrar Todo
+                            </button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Resultados</label>
+                        <div class="field-body">
+                            <div class="card has-table">
+                                <div class="card-content">
+                                    <table id="nombreCol">
+                                        <thead>
+                                        <tr>
+                                            <th>Municipio</th>
+                                            <th>Poblacion</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in colList2 %}
+                                            <tr>
+                                                <td data-label="Name"><a
+                                                        href="{{ item.colegio }}">{{ item.colegio }} </a></td>
+                                                <td data-label="Calle">
+                                                    {{ item.calle }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </section>
