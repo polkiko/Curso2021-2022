@@ -148,12 +148,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for key, value in colList.items %}
+                                        {% for item in colList %}
                                             <tr>
-                                            {% for colegio in value %}
-                                                    <td data-label="Name"><a
-                                                            href="{{ colegio }}">{{ colegio }} </a></td>
-                                            {% endfor %}
+                                                <td data-label="Name"><a
+                                                        href="{{ item.colegio }}">{{ item.colegio }} </a></td>
+                                                <td data-label="Calle">
+                                                    {{ item.calle }}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

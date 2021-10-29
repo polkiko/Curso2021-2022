@@ -47,20 +47,15 @@ class Colegios:
         }} LIMIT 50
         """
         gres = g.query(q)
-        resultado = {}
-        contador=1
+        resultado = []
 
         for row in gres:
-            var = 'colegio'+str(contador)
-            contador = contador + 1
-            # resultado[0].append(row[0])
+            auxDic = {'colegio': row[0]}
             auxCalle = row[1] + " " + row[2] + ", " + row[3]
-            #print(row[0], auxCalle)
-            lista = []
-            lista.append(row[0])
-            lista.append(auxCalle)
-            resultado[var] = lista
+            auxDic['calle'] = auxCalle
+            resultado.append(auxDic)
         return resultado
-
+#
 # aux = Colegios()
-# aux.nombreColegio('SAN BLAS')
+#
+# print(aux.nombreColegio('SAN BLAS'))
