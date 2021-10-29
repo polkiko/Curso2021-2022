@@ -65,7 +65,39 @@ class Colegios:
         tipoAux = self.tipoCentro.get(tipo)
         titAux = self.titCentro.get(titularidad)
         print(tipoAux, titAux, municipio, codigoPostal)
-#
-# aux = Colegios()
-#
+
+    def colegiosCoord(self):
+        g = rdflib.Graph()
+
+        g.parse("../../../rdf/output-with-links.nt")
+
+        q = """
+        PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX  cap: <http://www.colegiosapp.org/ontology#>
+        PREFIX  dbo: <http://dbpedia.org/ontology#>
+        PREFIX  owl: <http://www.w3.org/2002/07/owl#>
+
+        SELECT DISTINCT ?id ?name ?x ?y
+            WHERE{
+            ?centro cap:idSchool ?id.
+            ?centro cap:nameSchool ?name.
+            ?centro cap:xCoordinate ?x.
+            ?centro cap:yCoordinate ?y.
+        } GROUP BY ?id LIMIT 50
+        """
+        gres = g.query(q)
+        resultado = []
+        for row in gres:
+            idSchool = row[0].toPython()
+            nombre = row[1].toPython()
+            xCoord = row[2].toPython()
+            yCoord = row[3].toPython()
+            auxDic = {'idSchool': idSchool, 'name': nombre, 'xCoord': xCoord, 'yCoord': yCoord}
+            resultado.append(auxDic)
+        print(resultado)
+        return resultado
+
+
+aux = Colegios()
 # aux.nombreColAvanzada('Educación Primaria','Privado', 'Madrid', '28027')
+aux.colegiosCoord()
