@@ -1,8 +1,4 @@
 from django.shortcuts import render
-# Create your views here.
-
-from django.http import HttpResponse
-from django.template.response import TemplateResponse
 
 
 def index(request):
@@ -22,7 +18,15 @@ def colegios(request):
             colegio = request.POST["nombreColegio"]
             nameColegios = colegioAux.nombreColegio(colegio)
             return render(request, "colegios.html", {'colList': nameColegios, 'nColegios': nColegios})
-        else:
-            print("Form buscar colegio")
+        elif request.POST["action"] == "2":
+            # tipoCentro = request.POST["tipoCentro"]
+            # print(tipoCentro)
+            municipio = request.POST["municipioC"]
+            cp = request.POST["codigoP"]
+            tipoCentro = request.POST["tipoCentro"]
+            titCentro = request.POST["titCentro"]
 
+            print(tipoCentro, titCentro, municipio, cp)
+            nameColegios = []
+            return render(request, "colegios.html", {'colList2': nameColegios, 'nColegios': nColegios})
     return render(request, "colegios.html", {'nColegios': nColegios})

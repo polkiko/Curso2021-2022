@@ -4,6 +4,11 @@ from rdflib.plugins.sparql import prepareQuery
 
 
 class Colegios:
+    def __init__(self):
+        self.tipoCentro = {'Todos': 1, 'Otros': 2, 'Educación Infantil': 3, 'Educación Primaria': 4, 'Educación '
+                                                                                                     'Secundaria': 5}
+        self.titCentro = {'Todos': 1, 'Privado': 2, 'Privado Concertado': 3, 'Público': 4,
+                          'Público-Titularidad Privada': 5}
 
     def numColegios(self):
         g = rdflib.Graph()
@@ -55,7 +60,12 @@ class Colegios:
             auxDic['calle'] = auxCalle
             resultado.append(auxDic)
         return resultado
+
+    def nombreColAvanzada(self, tipo, titularidad, municipio, codigoPostal):
+        tipoAux = self.tipoCentro.get(tipo)
+        titAux = self.titCentro.get(titularidad)
+        print(tipoAux, titAux, municipio, codigoPostal)
 #
 # aux = Colegios()
 #
-# print(aux.nombreColegio('SAN BLAS'))
+# aux.nombreColAvanzada('Educación Primaria','Privado', 'Madrid', '28027')
