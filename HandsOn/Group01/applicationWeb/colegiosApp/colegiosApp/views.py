@@ -1,4 +1,6 @@
+from .querysSparql import Colegios
 from django.shortcuts import render
+from json import dumps
 
 
 def index(request):
@@ -10,15 +12,14 @@ def municipios(request):
 
 
 def colegios(request):
-    from .querysSparql import Colegios
     colegioAux = Colegios()
-    # nColegios = colegioAux.numColegios()
     if request.method == "POST":
-        if request.POST["action"] == "1":
+        if request.POST["action"] == "1":  # Búsqueda sólo por nombre de colegio
             colegio = request.POST["nombreColegio"]
-            nameColegios = colegioAux.nombreColegio(colegio)
-            return render(request, "colegios.html", {'colList': nameColegios})
-        elif request.POST["action"] == "2":
+            nameColegios = colegioAux.nombreColegio(colegio.upper())
+            return render(request, "colegios.html",
+                          {'nColegios': len(nameColegios), 'colList': nameColegios, 'jsonList': dumps(nameColegios)})
+        elif request.POST["action"] == "2":  # Búsqueda avanzada de colegios
             # tipoCentro = request.POST["tipoCentro"]
             # print(tipoCentro)
             municipio = request.POST["municipioC"]
@@ -28,5 +29,5 @@ def colegios(request):
 
             print(tipoCentro, titCentro, municipio, cp)
             nameColegios = []
-            return render(request, "colegios.html", {'colList2': nameColegios})
-    return render(request, "colegios.html")
+            return render(request, "colegios.html", {'colList2': nameColegios, 'nColegios': 0})
+    return render(request, "colegios.html", {'nColegios': 0})
