@@ -94,7 +94,6 @@ class Colegios:
             yCoord = row[3].toPython()
             auxDic = {'idSchool': idSchool, 'name': nombre, 'xCoord': xCoord, 'yCoord': yCoord}
             resultado.append(auxDic)
-        print(resultado)
         return resultado
 
 
