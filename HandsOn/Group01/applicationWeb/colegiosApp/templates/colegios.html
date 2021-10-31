@@ -64,23 +64,34 @@
     </section>
 
     <section class="section main-section">
-
-        <!-- Tarjetas de resultados de la búsqueda generales -->
-        {% if nColegios %}
-            <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+        <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+            <div class="card">
+                <div class="card-content">
+                    <div class="flex items-center justify-between">
+                        <div class="widget-label">
+                            <h3>Nº de Colegios Totales</h3>
+                            <h1><a>4005</a></h1>
+                        </div>
+                        <span class="icon widget-icon text-green-500"><i class="mdi mdi-school mdi-48px"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjetas de resultados de la búsqueda generales -->
+            {% if nColegios %}
                 <div class="card">
                     <div class="card-content">
                         <div class="flex items-center justify-between">
                             <div class="widget-label">
-                                <h3>Nº de colegios</h3>
+                                <h3>Nº de Colegios Encontrados</h3>
                                 <h1><a>{{ nColegios }}</a></h1>
                             </div>
                             <span class="icon widget-icon text-blue-500"><i class="mdi mdi-school mdi-48px"></i></span>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endif %}
+
+            {% endif %}
+        </div>
         <!--/end Tarjetas resultados generales -->
 
         <!-- Tarjeta Mapa -->
