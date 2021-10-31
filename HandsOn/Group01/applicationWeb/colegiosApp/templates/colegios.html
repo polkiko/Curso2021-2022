@@ -4,10 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %} Colegios App {% endblock %}</title>
-    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <title>Colegios App</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="{% static 'js/jquery.dataTables.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <!-- Leaflet CSS and Script to display map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
 </head>
 <body>
 <div id="app">
@@ -53,48 +64,65 @@
     </section>
 
     <section class="section main-section">
-        <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-            <div class="card">
-                <div class="card-content">
-                    <div class="flex items-center justify-between">
-                        <div class="widget-label">
-                            <h3>
-                                Nº de colegios
-                            </h3>
-                            <h1>
-                                <a>
-                                    4005
-                                </a>
-                            </h1>
 
+        <!-- Tarjetas de resultados de la búsqueda generales -->
+        {% if nColegios %}
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between">
+                            <div class="widget-label">
+                                <h3>Nº de colegios</h3>
+                                <h1><a>{{ nColegios }}</a></h1>
+                            </div>
+                            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-school mdi-48px"></i></span>
                         </div>
-                        <span class="icon widget-icon text-blue-500"><i class="mdi mdi-school mdi-48px"></i></span>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
+        <!--/end Tarjetas resultados generales -->
+
+        <!-- Tarjeta Mapa -->
         <div class="card mb-6">
             <header class="card-header">
-                <p class="card-header-title">
-                    <span class="icon"><i class="mdi mdi-map"></i></span>
-                    Mapa
-                </p>
+                <p class="card-header-title"><span class="icon"><i class="mdi mdi-map"></i></span>Mapa</p>
             </header>
             <div class="card-content">
-                <div class="chart-area">
-                    <div class="h-full">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="mapid"></div>
+                <style type="text/css">
+                    #mapid {
+                        height: 360px;
+                    }
+                </style>
+                <script type="application/javascript">
+                    var map = L.map('mapid').setView([40.4023, -3.7024], 10);
+                    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox/streets-v11',
+                        tileSize: 512,
+                        zoomOffset: -1,
+                        accessToken: 'pk.eyJ1IjoicG9sa2lrbyIsImEiOiJja3Y5cDEzbWowOHVsMnltZ3c4bTh3OXUzIn0.8-noFY7CFElXvUkRJmSazw'
+                    }).addTo(map);
+
+                </script>
+
+                <!-- Datos para generar makers en el mapa recibidos en JSON del backend -->
+                <script type="application/javascript">
+                    var listaColegios = JSON.parse("{{jsonList|escapejs}}");
+                    for (let i = 0; i < listaColegios.length; i++) {
+                        console.log("Nombre Colegio: ", listaColegios[i]["name"]);
+                        console.log("X: ", listaColegios[i]["xCoord"]);
+                        console.log("Y: ", listaColegios[i]["yCoord"]);
+                        L.marker([listaColegios[i]["yCoord"], listaColegios[i]["xCoord"]]).addTo(map).bindPopup(listaColegios[i]["name"]);
+                    }
+                </script>
             </div>
         </div>
+        <!-- /end Tarjeta Mapa -->
+
+        <!-- Tarjeta Consultas -->
         <div class="card mb-6">
             <header class="card-header">
                 <p class="card-header-title">
@@ -124,71 +152,64 @@
                     <hr>
                     <div class="field grouped">
                         <div class="control">
-                            <button type="submit" class="button green">
-                                Buscar
-                            </button>
+                            <button type="submit" class="button green">Buscar</button>
                         </div>
                         <div class="control">
-                            <button type="reset" class="button red"
-                            >
-                                Borrar Nombre
-                            </button>
+                            <button type="reset" class="button red">Borrar Nombre</button>
                         </div>
                     </div>
-                    <div class="field">
-                        <label class="label">Resultados</label>
-                        <div class="field-body">
-                            <div class="card has-table">
-                                <div class="card-content">
-                                    <table id="nombreCol">
-                                        <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Calle</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for item in colList %}
-                                            <tr>
-                                                <td data-label="Name"><a
-                                                        href="{{ item.colegio }}">{{ item.colegio }} </a></td>
-                                                <td data-label="Calle">
-                                                    {{ item.calle }}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                    <script>
-                                        $(function () {
-                                            $('#nombreCol').DataTable({
-                                                "paging": true,
-                                                "lengthChange": false,
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": true,
-                                                "autoWidth": false,
-                                                "responsive": true,
-                                            });
-                                        });
-                                    </script>
-                                    <div class="table-pagination">
-                                        <div class="flex items-center justify-between">
-                                            <div class="buttons">
-                                                <button type="button" class="button active">1</button>
-                                                <button type="button" class="button">2</button>
-                                                <button type="button" class="button">3</button>
-                                            </div>
-                                            <small>Page 1 of 3</small>
-                                        </div>
+                </form>
+                {% if nColegios %}
+                    <br/>
+                    <label class="label">Resultados</label>
+                    <div class="card has-table">
+                        <div class="card-content">
+                            <table id="nombreCol">
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Calle</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in colList %}
+                                    <tr>
+                                        <td data-label="Name"><a
+                                                href="{{ item.name }}">{{ item.name }} </a></td>
+                                        <td data-label="Calle">
+                                            {{ item.calle }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <script>
+                                $(function () {
+                                    $('#nombreCol').DataTable({
+                                        "paging": true,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": true,
+                                        "autoWidth": false,
+                                        "responsive": true,
+                                    });
+                                });
+                            </script>
+                            <div class="table-pagination">
+                                <div class="flex items-center justify-between">
+                                    <div class="buttons">
+                                        <button type="button" class="button active">1</button>
+                                        <button type="button" class="button">2</button>
+                                        <button type="button" class="button">3</button>
                                     </div>
+                                    <small>Page 1 of 3</small>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                </form>
+                {% endif %}
             </div>
             <hr>
             <div class="card-content">
@@ -329,18 +350,17 @@
                 </form>
             </div>
         </div>
+        <!-- /end Tarjeta Consultas -->
+
     </section>
 
-    {% block footer_block %}
-        <!-- Main Footer -->
-        <footer class="text-center footer-style" style="position:fixed; bottom: 1px">
-            <div class="container">
-                <p>Diseñado por el Grupo 01</p>
-            </div>
-        </footer>
-
-    {% endblock %}
+    <!-- Main Footer -->
+    <footer class="text-center footer-style"
+            style="position:fixed; bottom: 0px;width: 100%;border-top: 1px solid #bfbbbb4f;z-index: 1;">
+        <div class="container">
+            <p>ColegiosApp - Grupo 01</p>
+        </div>
+    </footer>
 </div>
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </body>
 </html>
