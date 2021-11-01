@@ -30,7 +30,7 @@ class Colegios:
     #     for row in gres:
     #         return row[0]
 
-    def nombreColegio(self, nombre):
+    def nombreColegio(self, nombre,limite):
         g = rdflib.Graph()
 
         g.parse("../../rdf/output-with-links.nt")
@@ -51,7 +51,7 @@ class Colegios:
             ?centro cap:yCoordinate ?y.
             ?centro cap:nameSchool ?name
                FILTER regex(?name , "{nombre}").
-        }} LIMIT 50
+        }} LIMIT {limite}
         """
         gres = g.query(q)
 
