@@ -166,7 +166,7 @@
                             <div class="field">
                                 <div class="control icons-left">
                                     <label>
-                                        <input name="limiteColegio" class="input" type="number" min="1"
+                                        <input name="limiteColegio" class="input" type="number" min="1" value="1"
                                                placeholder="Introduzca un límite de colegios a buscar">
                                     </label>
                                     <span class="icon left"><i class="mdi mdi-format-list-numbered"></i></span>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                 </form>
-                {% if nColegios %}
+                {% if action and action == 1 %}
                     <br/>
                     <label class="label">Resultados</label>
                     <div class="card has-table">
@@ -311,7 +311,7 @@
                             <div class="field">
                                 <div class="control icons-left">
                                     <label>
-                                        <input name="limiteColegio2" class="input" type="number" min="1"
+                                        <input name="limiteColegio2" class="input" type="number" min="1" value="1"
                                                placeholder="Introduzca un límite de colegios a buscar">
                                     </label>
                                     <span class="icon left"><i class="mdi mdi-format-list-numbered"></i></span>
@@ -334,6 +334,8 @@
                             </button>
                         </div>
                     </div>
+                </form>
+                {% if action and action == 2 %}
                     <div class="field">
                         <label class="label">Resultados</label>
                         <div class="field-body">
@@ -386,8 +388,7 @@
 
                         </div>
                     </div>
-
-                </form>
+            {% endif %}
             </div>
         </div>
         <!-- /end Tarjeta Consultas -->

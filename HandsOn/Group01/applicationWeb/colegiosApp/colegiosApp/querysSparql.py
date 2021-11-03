@@ -31,7 +31,7 @@ class Colegios:
             ?centro cap:yCoordinate ?y.
             ?centro cap:nameSchool ?name
                FILTER regex(?name , "{nombre}").
-        }} LIMIT {limite} ORDER BY ?name
+        }}  ORDER BY ?name LIMIT {limite}
         """
         gres = g.query(q)
 
