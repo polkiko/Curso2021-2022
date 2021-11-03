@@ -19,15 +19,16 @@ def colegios(request):
             limite = request.POST["limiteColegio"]
             nameColegios = colegioAux.nombreColegio(colegio.upper(), limite)
             return render(request, "colegios.html",
-                          {'nColegios': len(nameColegios), 'colList': nameColegios, 'jsonList': dumps(nameColegios)})
+                          {'nColegios': len(nameColegios), 'colList': nameColegios, 'jsonList': dumps(nameColegios),
+                           'action': 1})
         elif request.POST["action"] == "2":  # Búsqueda avanzada de colegios
-            # tipoCentro = request.POST["tipoCentro"]
-            # print(tipoCentro)
             municipio = request.POST["municipioC"]
             cp = request.POST["codigoP"]
             tipoCentro = request.POST["tipoCentro"]
             titCentro = request.POST["titCentro"]
             limite = request.POST["limiteColegio2"]
-            nameColegios = colegioAux.nombreColAvanzada(tipoCentro,titCentro,municipio,cp,limite)
-            return render(request, "colegios.html", {'colList2': nameColegios, 'nColegios': len(nameColegios),'jsonList': dumps(nameColegios)})
+            nameColegios = colegioAux.nombreColAvanzada(tipoCentro, titCentro, municipio, cp, limite)
+            return render(request, "colegios.html",
+                          {'colList2': nameColegios, 'nColegios': len(nameColegios), 'jsonList': dumps(nameColegios),
+                           'action': 2})
     return render(request, "colegios.html", {'nColegios': 0})
