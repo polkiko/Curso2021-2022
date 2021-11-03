@@ -98,7 +98,7 @@ class Colegios:
                     ?centro cap:nameSchool ?name.
                     ?centro cap:ownMunicipality ?muni.
                     """+ qmuni + qpost + qtipo + qtit + f"""}}
-                GROUP BY ?id LIMIT {limite}
+                GROUP BY ?id ORDER BY ?name LIMIT {limite}
                 """
         gres = g.query(qfinal)
         resultado = []
