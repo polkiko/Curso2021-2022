@@ -27,8 +27,7 @@ def colegios(request):
             cp = request.POST["codigoP"]
             tipoCentro = request.POST["tipoCentro"]
             titCentro = request.POST["titCentro"]
-
-            print(tipoCentro, titCentro, municipio, cp)
-            nameColegios = []
-            return render(request, "colegios.html", {'colList2': nameColegios, 'nColegios': 0})
+            limite = request.POST["limiteColegio2"]
+            nameColegios = colegioAux.nombreColAvanzada(tipoCentro,titCentro,municipio,cp,limite)
+            return render(request, "colegios.html", {'colList2': nameColegios, 'nColegios': len(nameColegios),'jsonList': dumps(nameColegios)})
     return render(request, "colegios.html", {'nColegios': 0})

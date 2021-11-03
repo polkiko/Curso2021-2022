@@ -305,6 +305,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="field">
+                        <label class="label">Límite de resultados</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control icons-left">
+                                    <label>
+                                        <input name="limiteColegio2" class="input" type="number" min="1"
+                                               placeholder="Introduzca un límite de colegios a buscar">
+                                    </label>
+                                    <span class="icon left"><i class="mdi mdi-format-list-numbered"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <hr>
 
                     <div class="field grouped">
@@ -335,7 +350,7 @@
                                         {% for item in colList2 %}
                                             <tr>
                                                 <td data-label="Name"><a
-                                                        href="{{ item.colegio }}">{{ item.colegio }} </a></td>
+                                                        href="{{ item.name }}">{{ item.name }} </a></td>
                                                 <td data-label="Calle">
                                                     {{ item.calle }}
                                                 </td>

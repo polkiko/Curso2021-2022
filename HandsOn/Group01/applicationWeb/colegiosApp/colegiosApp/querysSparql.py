@@ -10,26 +10,6 @@ class Colegios:
         self.titCentro = {'Todos': 1, 'Privado': 'PRIVADO', 'Privado Concertado': 'PRIVADO CONCERTADO',
                           'Público': 'PÚBLICO', 'Público-Titularidad Privada': 'PÚBLICO-TITULARIDAD PRIVADA'}
 
-    # def numColegios(self):
-    #     g = rdflib.Graph()
-    #
-    #     g.parse("../../rdf/output-with-links.nt")
-    #
-    #     q = """
-    #             PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
-    #             PREFIX  cap: <http://www.colegiosapp.org/ontology#>
-    #             PREFIX  dbo: <http://dbpedia.org/ontology#>
-    #             PREFIX  owl: <http://www.w3.org/2002/07/owl#>
-    #
-    #             SELECT (count(?centro) as ?c)
-    #                 WHERE{
-    #                 ?centro cap:idSchool ?name.
-    #             }
-    #             """
-    #     gres = g.query(q)
-    #     for row in gres:
-    #         return row[0]
-
     def nombreColegio(self, nombre, limite):
         g = rdflib.Graph()
 
@@ -131,38 +111,6 @@ class Colegios:
             resultado.append(auxDic)
         return resultado
 
-
-    # def colegiosCoord(self):
-    #     g = rdflib.Graph()
-    #
-    #     g.parse("../../rdf/output-with-links.nt")
-    #
-    #     q = """
-    #     PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
-    #     PREFIX  cap: <http://www.colegiosapp.org/ontology#>
-    #     PREFIX  dbo: <http://dbpedia.org/ontology#>
-    #     PREFIX  owl: <http://www.w3.org/2002/07/owl#>
-    #
-    #     SELECT DISTINCT ?id ?name ?x ?y
-    #         WHERE{
-    #         ?centro cap:idSchool ?id.
-    #         ?centro cap:nameSchool ?name.
-    #         ?centro cap:xCoordinate ?x.
-    #         ?centro cap:yCoordinate ?y.
-    #     } GROUP BY ?id LIMIT 50
-    #     """
-    #     gres = g.query(q)
-    #     resultado = []
-    #     for row in gres:
-    #         idSchool = row[0].toPython()
-    #         nombre = row[1].toPython()
-    #         xCoord = float(row[2].toPython())
-    #         yCoord = float(row[3].toPython())
-    #         auxDic = {'idSchool': idSchool, 'name': nombre, 'xCoord': xCoord, 'yCoord': yCoord}
-    #         resultado.append(auxDic)
-    #     return resultado
-
-
-aux = Colegios()
+# aux = Colegios()
 #aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
-print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
+# print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
