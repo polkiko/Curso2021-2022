@@ -97,8 +97,8 @@ class Colegios:
                     ?centro cap:yCoordinate ?y.
                     ?centro cap:nameSchool ?name.
                     ?centro cap:ownMunicipality ?muni.
-                    """+ qmuni + qpost + qtipo + qtit + f"""}}
-                GROUP BY ?id LIMIT {limite}
+                    """ + qmuni + qpost + qtipo + qtit + f"""}}
+                GROUP BY ?id ORDER BY ?name LIMIT {limite}
                 """
         gres = g.query(qfinal)
         resultado = []
@@ -111,6 +111,62 @@ class Colegios:
             resultado.append(auxDic)
         return resultado
 
+    def numeroPoblacion(self, municipio, sexo, edMin, edMax):
+        numPobl = 0
+        nomMuni = ''
+        result = self.buscarIntAux(edMin, edMax)
+        arrMin = result[0]
+        arrMax = result[1]
+        qsexo = ""
+        if sexo != "Ambos":
+            qsexo = f"""?group cap:hasGender ?sexo
+                        FILTER (?sexo = "{sexo}").
+                        """
+        for min, max in zip(arrMin, arrMax):
+            g = rdflib.Graph()
+            g.parse("../../rdf/output-with-links.nt")
+            qfinal = f"""
+                    PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+                    PREFIX  cap: <http://www.colegiosapp.org/ontology#>
+                    PREFIX  dbo: <http://dbpedia.org/ontology#>
+                    PREFIX  owl: <http://www.w3.org/2002/07/owl#>
+                    
+                    SELECT ?pobl ?nameMuni
+                        WHERE{{
+                            ?group cap:liveIn ?muni.
+                            ?muni cap:hasNameMunicipality ?nameMuni
+                                FILTER (?nameMuni = "{municipio}").
+                            ?group cap:minAge ?min
+                                FILTER (?min = "{min}"^^xsd:int).
+                            ?group cap:maxAge ?max
+                                FILTER (?max = "{max}"^^xsd:int).
+                            ?group cap:numPeople ?pobl.
+                            """ + qsexo + f"""}}
+                    """
+            gres = g.query(qfinal)
+            for row in gres:
+                nomMuni = row[1]
+                numPobl = numPobl + int(row[0])
+        resultado = {'numPobl': numPobl, 'nomMuni': nomMuni}
+        return resultado
+
+    def buscarIntAux(self, min, max):
+        x = min
+        y = max
+        arrMin = []
+        arrMax = []
+        while x < max:
+            arrMin.append(x)
+            x = x + 5
+        while y > min:
+            arrMax.insert(0, y)
+            y = y - 5
+        return [arrMin, arrMax]
+
+
 # aux = Colegios()
-#aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
+# aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
 # print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
+
+aux = Colegios()
+aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 29)
