@@ -1722,3 +1722,25 @@ footer {
         grid-template-columns:repeat(2, minmax(0, 1fr))
     }
 }
+
+li.paginate_button{
+    display: inline;
+    padding: 5px;
+    margin: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e5e7eb;
+    background-color: rgba(204, 208, 215, 0.5);
+    border-radius: 5px;
+}
+
+li.paginate_button:hover{
+    display: inline;
+    padding: 5px;
+    margin: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e5e7eb;
+    background-color: rgba(137, 137, 138, 0.5);
+    border-radius: 5px;
+}
