@@ -23,8 +23,8 @@ mappings:
     po:
       - [ a, cap:ResidentGroup ]
       - [ cap:hasGender, $(sexo), xsd:string ]
-      - [ cap:maxAge, $(min_edad), xsd:int ]
-      - [ cap:minAge, $(max_edad), xsd:int ]
+      - [ cap:maxAge, $(max_edad), xsd:int ]
+      - [ cap:minAge, $(min_edad), xsd:int ]
       - [ cap:numPeople, $(poblacion_empadronada), xsd:int ]
       - p: cap:liveIn
         o:
