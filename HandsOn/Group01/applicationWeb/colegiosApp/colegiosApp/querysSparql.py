@@ -181,15 +181,22 @@ class Colegios:
             coords = results['results']['bindings'][0]['coords']['value']
             coords = coords.replace('Point(', "")
             coords = coords.replace(')', "")
-            auxCoord = coords
-            auxDic['xCoord'] = coords.replace(' 40.534166666', "")
-            auxDic['yCoord'] = auxCoord.replace('-3.480833333 ', "")
+            x = ""
+            for a in coords:
+                if a != " ":
+                    x = x + a
+                else:
+                    break
+            coords = coords.replace(x + " ", "")
+            y = coords
+            auxDic['xCoord'] = x
+            auxDic['yCoord'] = y
             area = results['results']['bindings'][0]['area']['value']
             auxDic['area'] = area
         except:
             print(Exception)
 
-        auxDic['densidad'] = numPobl / float(area)
+        auxDic['densidad'] = '{:.2f}'.format(numPobl / float(area))
         auxDic['numPobl'] = numPobl
         auxDic['nomMuni'] = nomMuni
         auxDic['sexo'] = sexo
@@ -245,11 +252,10 @@ class Colegios:
         return auxDic
 
 
-#aux = Colegios()
-#print(aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50))
+# aux = Colegios()
+# aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
 # print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
-#
-aux = Colegios()
-print(aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 9))
+# aux = Colegios()
+# print(aux.numeroPoblacion('Madrid', 'Ambos', 0, 4))
 #aux = Colegios()
-#print(aux.nombreColegio("APOSTOL"))
+#print(aux.nombreColegio("SAN BLAS"))

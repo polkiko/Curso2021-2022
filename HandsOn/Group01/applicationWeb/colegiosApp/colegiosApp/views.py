@@ -28,6 +28,7 @@ def colegios(request):
                            'action': 2})
     return render(request, "colegios.html", {'nColegios': 0})
 
+
 def municipios(request):
     municipioAux = Colegios()
     if request.method == "POST":
@@ -36,5 +37,5 @@ def municipios(request):
         edMin = request.POST["edadMin"]
         edMax = request.POST["edadMax"]
         munList = municipioAux.numeroPoblacion(municipio, sexo, edMin, edMax)
-        return render(request, "municipios.html", {'munList': munList})
+        return render(request, "municipios.html", {'munList': munList, 'jsonList': dumps(munList)})
     return render(request, "municipios.html")

@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Colegios App {% endblock %}</title>
     <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+    <!-- Leaflet CSS and Script to display map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
 </head>
 <body>
 
@@ -69,7 +84,46 @@
                 </div>
             </div>
         </div>
+        <!-- Tarjeta Mapa -->
+        <div class="card mb-6">
+            <header class="card-header">
+                <p class="card-header-title"><span class="icon"><i class="mdi mdi-map"></i></span>Mapa</p>
+            </header>
+            <div class="card-content">
+                <div id="mapid"></div>
+                <style type="text/css">
+                    #mapid {
+                        height: 360px;
+                    }
+                </style>
+                <script type="application/javascript">
+                    var map = L.map('mapid').setView([40.4023, -3.7024], 10);
+                    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox/streets-v11',
+                        tileSize: 512,
+                        zoomOffset: -1,
+                        accessToken: 'pk.eyJ1IjoicG9sa2lrbyIsImEiOiJja3Y5cDEzbWowOHVsMnltZ3c4bTh3OXUzIn0.8-noFY7CFElXvUkRJmSazw'
+                    }).addTo(map);
 
+                </script>
+
+                <!-- Datos para generar makers en el mapa recibidos en JSON del backend -->
+                <script type="application/javascript">
+                    var municipio = JSON.parse("{{jsonList|escapejs}}");
+                    for (let i = 0; i < municipio.length; i++) {
+                        varXml = '<b>Municipio:</b> ' + municipio[i]["nomMuni"] + '<br>' +
+                            '<b>Población:</b> ' + municipio[i]["numPobl"] + '<br>' +
+                            '<b>Densidad:</b> ' + municipio[i]["densidad"] + ' <br>' +
+                            '<b>Edad:</b> ' + municipio[i]["edad"] + '<br>' +
+                            '<b>Sexo:</b> ' + municipio[i]["sexo"] + '<br>';
+                        L.marker([municipio[i]["yCoord"], municipio[i]["xCoord"]]).addTo(map).bindPopup(varXml);
+                    }
+                </script>
+            </div>
+        </div>
+        <!-- /end Tarjeta Mapa -->
         <div class="card mb-6">
             <header class="card-header">
                 <p class="card-header-title">
@@ -154,6 +208,7 @@
                             </button>
                         </div>
                     </div>
+                {% if munList %}
                     <div class="field">
                         <label class="label">Resultados</label>
                         <div class="field-body">
@@ -167,12 +222,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {% for item in munList %}
                                             <tr>
-                                                <td data-label="Name">{{ munList.nomMuni }}</td>
+                                                <td data-label="Name">{{ item.nomMuni }}</td>
                                                 <td data-label="Calle">
-                                                    {{ munList.numPobl }}
+                                                    {{ item.numPobl }}
                                                 </td>
                                             </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -180,6 +237,7 @@
 
                         </div>
                     </div>
+                {% endif %}
 
                 </form>
             </div>
@@ -198,9 +256,10 @@
     </script>
     {% block footer_block %}
         <!-- Main Footer -->
-        <footer class="text-center footer-style" style="position:fixed; bottom: 1px">
+        <footer class="text-center footer-style"
+                style="position:fixed; bottom: 0px;width: 100%;border-top: 1px solid #bfbbbb4f;z-index: 1;">
             <div class="container">
-                <p>Diseñado por el Grupo 01</p>
+                <p>ColegiosApp - Grupo 01</p>
             </div>
         </footer>
 
