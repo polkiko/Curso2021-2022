@@ -220,6 +220,14 @@ class Colegios:
         return [arrMin, arrMax]
 
     def completaRowAux(self, row):
+
+        # En caso de que la url no comience por http. Ej: www.losabetitos.com
+
+        httpUrl = row[11].toPython()
+
+        if not "https://" or not "http://" in httpUrl:
+            httpUrl = ''.join(("https://", httpUrl))
+
         auxDic = {'name': row[0],
                   'calle': row[1] + " " + row[2] + ", " + row[3],
                   'xCoord': float(row[4].toPython()),
@@ -228,7 +236,7 @@ class Colegios:
                   'tipo': row[8],
                   'titula': row[9],
                   'codPost': row[10],
-                  'url': row[11].toPython()
+                  'url': httpUrl
                   }
         aux = row[6].replace("https://wikidata.org/entity/", "")
         sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
@@ -257,5 +265,5 @@ class Colegios:
 # print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
 # aux = Colegios()
 # print(aux.numeroPoblacion('Madrid', 'Ambos', 0, 4))
-#aux = Colegios()
-#print(aux.nombreColegio("SAN BLAS"))
+aux = Colegios()
+print(aux.nombreColegio("ABETITOS"))
