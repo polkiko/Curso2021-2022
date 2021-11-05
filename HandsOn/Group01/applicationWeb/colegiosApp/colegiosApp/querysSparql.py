@@ -237,7 +237,7 @@ class Colegios:
                   'titula': row[9],
                   'codPost': row[10],
                   'url': httpUrl
-                  }
+                  };
         aux = row[6].replace("https://wikidata.org/entity/", "")
         sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 
