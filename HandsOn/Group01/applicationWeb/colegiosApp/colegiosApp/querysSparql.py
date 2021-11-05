@@ -1,7 +1,8 @@
 # Querys Sparql
 import rdflib
+from SPARQLWrapper import SPARQLWrapper, JSON, XML
 from rdflib.plugins.sparql import prepareQuery
-
+import json
 
 class Colegios:
     def __init__(self):
@@ -11,6 +12,7 @@ class Colegios:
                           'Público': 'PÚBLICO', 'Público-Titularidad Privada': 'PÚBLICO-TITULARIDAD PRIVADA'}
 
     def nombreColegio(self, nombre):
+        global auxDic
         g = rdflib.Graph()
 
         g.parse("../../rdf/output-with-links.nt")
@@ -21,7 +23,7 @@ class Colegios:
         PREFIX  dbo: <http://dbpedia.org/ontology#>
         PREFIX  owl: <http://www.w3.org/2002/07/owl#>
 
-        SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y
+        SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?municipio
             WHERE{{
             ?centro cap:hasAddress ?calle.
             ?calle cap:hasNameAddress ?nomCalle.
@@ -29,9 +31,13 @@ class Colegios:
             ?calle cap:hasNumber ?numCalle.
             ?centro cap:xCoordinate ?x.
             ?centro cap:yCoordinate ?y.
-            ?centro cap:nameSchool ?name
+            ?centro cap:nameSchool ?name.
+            ?centro cap:ownMunicipality ?muni.
+            ?muni owl:sameAs ?wikidata.
+            ?centro cap:idSchool ?id.
+            ?muni cap:hasNameMunicipality ?municipio.
                FILTER regex(?name , "{nombre}").
-        }}  ORDER BY ?name
+        }}  GROUP BY ?id ORDER BY ?name
         """
         gres = g.query(q)
 
@@ -40,9 +46,29 @@ class Colegios:
             auxDic = {'name': row[0],
                       'calle': row[1] + " " + row[2] + ", " + row[3],
                       'xCoord': float(row[4].toPython()),
-                      'yCoord': float(row[5].toPython())
+                      'yCoord': float(row[5].toPython()),
+                      'municipio': row[7]
                       }
-            resultado.append(auxDic)
+            aux = row[6].replace("https://wikidata.org/entity/", "")
+            sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+
+            sparql.setQuery(f"""
+            PREFIX wd: <http://www.wikidata.org/entity/>
+            PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+            
+            SELECT ?flag
+                WHERE {{
+                    wd:{aux} wdt:P41 ?flag
+                }}
+            """)
+            try:
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+                svg = results['results']['bindings'][0]['flag']['value']
+                auxDic['svg'] = svg
+                resultado.append(auxDic)
+            except:
+                print(Exception)
         return resultado
 
     def nombreColAvanzada(self, tipo, titularidad, municipio, codigoPostal, limite):
@@ -169,6 +195,8 @@ class Colegios:
 # aux = Colegios()
 # aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
 # print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
-
+#
+# aux = Colegios()
+# aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 29)
 aux = Colegios()
-aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 29)
+print(aux.nombreColegio("SAN BLAS"))

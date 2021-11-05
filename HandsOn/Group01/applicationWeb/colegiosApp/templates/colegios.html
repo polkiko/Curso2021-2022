@@ -179,13 +179,22 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Calle</th>
+                                    <th>Municipio</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for item in colList %}
                                     <tr>
-                                        <td data-label="Name">{{ item.name }}</td>
+                                        {% if item.link == "Sin web" %}
+                                            <td data-label="Name">{{ item.name }}</td>
+                                        {% else %}
+                                            <td data-label="Name"><a href="{{ item.link }}">{{ item.name }}</a></td>
+                                        {% endif %}
                                         <td data-label="Calle">{{ item.calle }}</td>
+                                        <td data-label="Calle">
+                                            <img src="{{ item.svg }}" alt="img" title="{{ item.municipio }}"
+                                                 style="width: 150px;height: 100px"/>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -319,8 +328,12 @@
                                         <tbody>
                                         {% for item in colList2 %}
                                             <tr>
-                                                <td data-label="Name"><a
-                                                        href="{{ item.name }}">{{ item.name }} </a></td>
+                                                {% if item.link == "Sin Web" %}
+                                                    <td data-label="Name">{{ item.name }}</td>
+                                                {% else %}
+                                                    <td data-label="Name"><a href="{{ item.link }}">{{ item.name }}</a>
+                                                    </td>
+                                                {% endif %}
                                                 <td data-label="Calle">{{ item.calle }}</td>
                                             </tr>
                                         {% endfor %}
