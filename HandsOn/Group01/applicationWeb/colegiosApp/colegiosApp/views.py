@@ -7,10 +7,6 @@ def index(request):
     return render(request, "index.html")
 
 
-def municipios(request):
-    return render(request, "municipios.html")
-
-
 def colegios(request):
     colegioAux = Colegios()
     if request.method == "POST":
@@ -31,3 +27,14 @@ def colegios(request):
                           {'colList2': nameColegios, 'nColegios': len(nameColegios), 'jsonList': dumps(nameColegios),
                            'action': 2})
     return render(request, "colegios.html", {'nColegios': 0})
+
+def municipios(request):
+    municipioAux = Colegios()
+    if request.method == "POST":
+        municipio = request.POST["nMunicipio"]
+        sexo = request.POST["sexoM"]
+        edMin = request.POST["edadMin"]
+        edMax = request.POST["edadMax"]
+        munList = municipioAux.numeroPoblacion(municipio, sexo, edMin, edMax)
+        return render(request, "municipios.html", {'munList': munList})
+    return render(request, "municipios.html")

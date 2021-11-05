@@ -78,7 +78,7 @@
                 </p>
             </header>
             <div class="card-content">
-                <form method="post">
+                <form name="myForm" onsubmit="return validateForm();" method="post">
                     {% csrf_token %}
                     <!--Nombre Municipio-->
                     <div class="field">
@@ -167,15 +167,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for item in colList2 %}
                                             <tr>
-                                                <td data-label="Name"><a
-                                                        href="{{ item.colegio }}">{{ item.colegio }} </a></td>
+                                                <td data-label="Name">{{ munList.nomMuni }}</td>
                                                 <td data-label="Calle">
-                                                    {{ item.calle }}
+                                                    {{ munList.numPobl }}
                                                 </td>
                                             </tr>
-                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -188,7 +185,17 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        function validateForm() {
 
+            var x = document.forms["myForm"]["edadMax"].value;
+            var y = document.forms["myForm"]["edadMin"].value;
+            if (Number(x) < Number(y)) {
+                alert("La edad mínima debe ser menor que la máxima");
+                return false;
+            }
+        }
+    </script>
     {% block footer_block %}
         <!-- Main Footer -->
         <footer class="text-center footer-style" style="position:fixed; bottom: 1px">

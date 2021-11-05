@@ -151,6 +151,8 @@ class Colegios:
         return resultado
 
     def buscarIntAux(self, min, max):
+        min = int(min)
+        max = int(max)
         x = min
         y = max
         arrMin = []
