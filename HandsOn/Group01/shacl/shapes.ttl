@@ -1,0 +1,190 @@
+@prefix dbo:   <http://dbpedia.org/ontology#> .
+@prefix :      <http://www.colegiosapp.org/ontology#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
+@prefix afn:   <http://jena.apache.org/ARQ/function#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://astrea.linkeddata.es/shapes#1c27a2047114599e14efb0fa06c50ac3>
+        a               sh:NodeShape ;
+        sh:nodeKind     sh:IRI ;
+        sh:property     <https://astrea.linkeddata.es/shapes#b1623cb826fec26ccbdcdb687fa301dc> , <https://astrea.linkeddata.es/shapes#bfd0c78cc9f33b1cc3375444a36beecc> , <https://astrea.linkeddata.es/shapes#86dd4553d4b4fb583698ec747ebf19f8> , <https://astrea.linkeddata.es/shapes#9342cd77a858c4987385448a69b0a4e1> , <https://astrea.linkeddata.es/shapes#0ee53c3d6b10005eaffe2b8d7c01fdf5> , <https://astrea.linkeddata.es/shapes#26c017b6f08162bb8165b409f29c044a> , <https://astrea.linkeddata.es/shapes#25963b0f537e15d54d3f104bcf87c6b3> , <https://astrea.linkeddata.es/shapes#5b0030060ae8fe006504233577dafcaf> , <https://astrea.linkeddata.es/shapes#2ecc4269279b7d6068ffd000631d135e> ;
+        sh:targetClass  dbo:School .
+
+<https://astrea.linkeddata.es/shapes#0ee53c3d6b10005eaffe2b8d7c01fdf5>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :ownership ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#b1623cb826fec26ccbdcdb687fa301dc>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :xCoordinate ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#e9082658ccfefc9b3445001e41f9e50f>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasPostalCode ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#91a2f38810f40ecf5cd0a4919f9fbc5f>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasNameMunicipality ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#25963b0f537e15d54d3f104bcf87c6b3>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :idSchool ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#6f709903f59dbfd4e040481bf1d31ea0>
+        a                sh:PropertyShape ;
+        sh:datatype      xsd:int ;
+        sh:maxInclusive  2147483647 ;
+        sh:minInclusive  -2147483648 ;
+        sh:nodeKind      sh:Literal ;
+        sh:path          :numPeople ;
+        sh:pattern       "[\\-+]?[0-9]+" .
+
+<https://astrea.linkeddata.es/shapes#2e99504692093e6011d8b09bffa7eb94>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasNumber ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#ebb87dcc2fd562a1d24734983793f47c>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasGender ;
+        sh:pattern   ".*" .
+
+<http://astrea.linkeddata.es/report>
+        a       <https://w3id.org/def/astrea#ShapeReport> ;
+        <https://w3id.org/def/astrea#contains>
+                <https://astrea.linkeddata.es/shapes#ebb87dcc2fd562a1d24734983793f47c> , <https://astrea.linkeddata.es/shapes#0ee53c3d6b10005eaffe2b8d7c01fdf5> , <https://astrea.linkeddata.es/shapes#0551122c143344fd9241baabb10ca0b7> , <https://astrea.linkeddata.es/shapes#1c27a2047114599e14efb0fa06c50ac3> , <https://astrea.linkeddata.es/shapes#5b0030060ae8fe006504233577dafcaf> , <https://astrea.linkeddata.es/shapes#25963b0f537e15d54d3f104bcf87c6b3> , <https://astrea.linkeddata.es/shapes#2e99504692093e6011d8b09bffa7eb94> , <https://astrea.linkeddata.es/shapes#2ecc4269279b7d6068ffd000631d135e> , <https://astrea.linkeddata.es/shapes#91a2f38810f40ecf5cd0a4919f9fbc5f> , <https://astrea.linkeddata.es/shapes#a8712a0101de7bec494bc106f3b728e1> , <https://astrea.linkeddata.es/shapes#b1623cb826fec26ccbdcdb687fa301dc> , <https://astrea.linkeddata.es/shapes#deb2a706789f5a57b4d0582a39ff9c07> , <https://astrea.linkeddata.es/shapes#48dcf8ee9648c397a38e7f94dec4cf15> , <https://astrea.linkeddata.es/shapes#9342cd77a858c4987385448a69b0a4e1> , <https://astrea.linkeddata.es/shapes#679afed74e1fbdd7a239d41f20951311> , <https://astrea.linkeddata.es/shapes#e9082658ccfefc9b3445001e41f9e50f> , <https://astrea.linkeddata.es/shapes#22c0546814a91a42bdd373df348c39f5> , <https://astrea.linkeddata.es/shapes#96c04f2732c59eaca5098bb23254cc66> , <https://astrea.linkeddata.es/shapes#bfd0c78cc9f33b1cc3375444a36beecc> , <https://astrea.linkeddata.es/shapes#5b8d8535d3f32c08d3ce29df72563aa0> , <https://astrea.linkeddata.es/shapes#26c017b6f08162bb8165b409f29c044a> , <https://astrea.linkeddata.es/shapes#59f58bd413cd851b29a7ab98a0f376af> , <https://astrea.linkeddata.es/shapes#6f709903f59dbfd4e040481bf1d31ea0> , <https://astrea.linkeddata.es/shapes#86dd4553d4b4fb583698ec747ebf19f8> ;
+        <https://w3id.org/def/astrea#generatedShapesFrom>
+                <https://astrea.linkeddata.es/report/0620946147> .
+
+<https://astrea.linkeddata.es/shapes#96c04f2732c59eaca5098bb23254cc66>
+        a                sh:PropertyShape ;
+        sh:datatype      xsd:int ;
+        sh:maxInclusive  2147483647 ;
+        sh:minInclusive  -2147483648 ;
+        sh:nodeKind      sh:Literal ;
+        sh:path          :maxAge ;
+        sh:pattern       "[\\-+]?[0-9]+" .
+
+<https://astrea.linkeddata.es/shapes#2ecc4269279b7d6068ffd000631d135e>
+        a            sh:PropertyShape ;
+        sh:class     :Address ;
+        sh:nodeKind  sh:BlankNodeOrIRI ;
+        sh:path      :hasAddress .
+
+<https://astrea.linkeddata.es/shapes#5b8d8535d3f32c08d3ce29df72563aa0>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasNameAddress ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#48dcf8ee9648c397a38e7f94dec4cf15>
+        a            sh:PropertyShape ;
+        sh:class     dbo:Municipality ;
+        sh:nodeKind  sh:BlankNodeOrIRI ;
+        sh:path      :liveIn .
+
+<https://astrea.linkeddata.es/shapes#86dd4553d4b4fb583698ec747ebf19f8>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :nameSchool ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#5b0030060ae8fe006504233577dafcaf>
+        a            sh:PropertyShape ;
+        sh:class     dbo:Municipality ;
+        sh:nodeKind  sh:BlankNodeOrIRI ;
+        sh:path      :ownMunicipality .
+
+<https://astrea.linkeddata.es/report/0620946147>
+        a       <https://w3id.org/def/astrea#ReportEntry> ;
+        <https://w3id.org/def/astrea#message>
+                "Shapes generated with no errors" ;
+        <https://w3id.org/def/astrea#statusCode>
+                "200"^^xsd:int .
+
+<https://astrea.linkeddata.es/shapes#26c017b6f08162bb8165b409f29c044a>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasTypeSchool ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#679afed74e1fbdd7a239d41f20951311>
+        a               sh:NodeShape ;
+        sh:nodeKind     sh:IRI ;
+        sh:property     <https://astrea.linkeddata.es/shapes#48dcf8ee9648c397a38e7f94dec4cf15> , <https://astrea.linkeddata.es/shapes#59f58bd413cd851b29a7ab98a0f376af> , <https://astrea.linkeddata.es/shapes#ebb87dcc2fd562a1d24734983793f47c> , <https://astrea.linkeddata.es/shapes#96c04f2732c59eaca5098bb23254cc66> , <https://astrea.linkeddata.es/shapes#6f709903f59dbfd4e040481bf1d31ea0> ;
+        sh:targetClass  :ResidentGroup .
+
+<https://astrea.linkeddata.es/shapes#0551122c143344fd9241baabb10ca0b7>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :idMunicipality ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#deb2a706789f5a57b4d0582a39ff9c07>
+        a               sh:NodeShape ;
+        sh:nodeKind     sh:IRI ;
+        sh:property     <https://astrea.linkeddata.es/shapes#0551122c143344fd9241baabb10ca0b7> , <https://astrea.linkeddata.es/shapes#91a2f38810f40ecf5cd0a4919f9fbc5f> ;
+        sh:targetClass  dbo:Municipality .
+
+<https://astrea.linkeddata.es/shapes#a8712a0101de7bec494bc106f3b728e1>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :hasTypeAddress ;
+        sh:pattern   ".*" .
+
+<https://astrea.linkeddata.es/shapes#59f58bd413cd851b29a7ab98a0f376af>
+        a                sh:PropertyShape ;
+        sh:datatype      xsd:int ;
+        sh:maxInclusive  2147483647 ;
+        sh:minInclusive  -2147483648 ;
+        sh:nodeKind      sh:Literal ;
+        sh:path          :minAge ;
+        sh:pattern       "[\\-+]?[0-9]+" .
+
+<https://astrea.linkeddata.es/shapes#22c0546814a91a42bdd373df348c39f5>
+        a               sh:NodeShape ;
+        sh:nodeKind     sh:IRI ;
+        sh:property     <https://astrea.linkeddata.es/shapes#5b8d8535d3f32c08d3ce29df72563aa0> , <https://astrea.linkeddata.es/shapes#e9082658ccfefc9b3445001e41f9e50f> , <https://astrea.linkeddata.es/shapes#a8712a0101de7bec494bc106f3b728e1> , <https://astrea.linkeddata.es/shapes#2e99504692093e6011d8b09bffa7eb94> ;
+        sh:targetClass  :Address .
+
+<https://astrea.linkeddata.es/shapes#9342cd77a858c4987385448a69b0a4e1>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:anyURI ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :urlSchool ;
+        sh:pattern   "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?" .
+
+<https://astrea.linkeddata.es/shapes#bfd0c78cc9f33b1cc3375444a36beecc>
+        a            sh:PropertyShape ;
+        sh:datatype  xsd:string ;
+        sh:nodeKind  sh:Literal ;
+        sh:path      :yCoordinate ;
+        sh:pattern   ".*" .
