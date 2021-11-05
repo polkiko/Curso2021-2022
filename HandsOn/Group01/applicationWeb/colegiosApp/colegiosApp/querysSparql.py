@@ -10,7 +10,7 @@ class Colegios:
         self.titCentro = {'Todos': 1, 'Privado': 'PRIVADO', 'Privado Concertado': 'PRIVADO CONCERTADO',
                           'Público': 'PÚBLICO', 'Público-Titularidad Privada': 'PÚBLICO-TITULARIDAD PRIVADA'}
 
-    def nombreColegio(self, nombre, limite):
+    def nombreColegio(self, nombre):
         g = rdflib.Graph()
 
         g.parse("../../rdf/output-with-links.nt")
@@ -31,7 +31,7 @@ class Colegios:
             ?centro cap:yCoordinate ?y.
             ?centro cap:nameSchool ?name
                FILTER regex(?name , "{nombre}").
-        }}  ORDER BY ?name LIMIT {limite}
+        }}  ORDER BY ?name
         """
         gres = g.query(q)
 

@@ -16,8 +16,7 @@ def colegios(request):
     if request.method == "POST":
         if request.POST["action"] == "1":  # Búsqueda sólo por nombre de colegio
             colegio = request.POST["nombreColegio"]
-            limite = request.POST["limiteColegio"]
-            nameColegios = colegioAux.nombreColegio(colegio.upper(), limite)
+            nameColegios = colegioAux.nombreColegio(colegio.upper())
             return render(request, "colegios.html",
                           {'nColegios': len(nameColegios), 'colList': nameColegios, 'jsonList': dumps(nameColegios),
                            'action': 1})
