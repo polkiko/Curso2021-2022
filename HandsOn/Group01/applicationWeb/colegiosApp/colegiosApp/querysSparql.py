@@ -47,32 +47,7 @@ class Colegios:
 
         resultado = []
         for row in gres:
-            auxDic = {'name': row[0],
-                      'calle': row[1] + " " + row[2] + ", " + row[3],
-                      'xCoord': float(row[4].toPython()),
-                      'yCoord': float(row[5].toPython()),
-                      'municipio': row[7],
-                      'tipo': row[8],
-                      'titula': row[9],
-                      'codPost': row[10],
-                      'url': row[11].toPython()
-                      }
-            aux = row[6].replace("https://wikidata.org/entity/", "")
-            sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-
-            sparql.setQuery(f"""
-            PREFIX wd: <http://www.wikidata.org/entity/>
-            PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-            
-            SELECT ?flag
-                WHERE {{
-                    wd:{aux} wdt:P41 ?flag
-                }}
-            """)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            svg = results['results']['bindings'][0]['flag']['value']
-            auxDic['svg'] = svg
+            auxDic = self.completaRowAux(row)
             resultado.append(auxDic)
         return resultado
 
@@ -117,34 +92,40 @@ class Colegios:
                 PREFIX  dbo: <http://dbpedia.org/ontology#>
                 PREFIX  owl: <http://www.w3.org/2002/07/owl#>
 
-                SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?nomMuni ?tipo ?tit ?cod ?url
+                SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?nomMuni ?tipo ?tit ?postal ?url
                     WHERE{{
                     ?centro cap:idSchool ?id.
                     ?centro cap:hasAddress ?calle.
                     ?calle cap:hasNameAddress ?nomCalle.
                     ?calle cap:hasType ?tipoVia.
                     ?calle cap:hasNumber ?numCalle.
+                    ?calle cap:hasPostalCode ?postal.
                     ?centro cap:xCoordinate ?x.
                     ?centro cap:yCoordinate ?y.
                     ?centro cap:nameSchool ?name.
+                    ?centro cap:hasTypeSchool ?tipo.
+                    ?centro cap:ownership ?tit.
+                    ?centro cap:urlSchool ?url.
                     ?centro cap:ownMunicipality ?muni.
+                    ?muni cap:hasNameMunicipality ?nomMuni.  
+                    ?muni owl:sameAs ?wikidata.
                     """ + qmuni + qpost + qtipo + qtit + f"""}}
                 GROUP BY ?id ORDER BY ?name LIMIT {limite}
                 """
         gres = g.query(qfinal)
         resultado = []
         for row in gres:
-            auxDic = {'name': row[0],
-                      'calle': row[1] + " " + row[2] + ", " + row[3],
-                      'xCoord': float(row[4].toPython()),
-                      'yCoord': float(row[5].toPython())
-                      }
+            auxDic = self.completaRowAux(row)
             resultado.append(auxDic)
         return resultado
 
     def numeroPoblacion(self, municipio, sexo, edMin, edMax):
         numPobl = 0
         nomMuni = ''
+        wikidata = ''
+        area = 1
+        resultado = []
+        auxDic = {}
         result = self.buscarIntAux(edMin, edMax)
         arrMin = result[0]
         arrMax = result[1]
@@ -162,11 +143,12 @@ class Colegios:
                     PREFIX  dbo: <http://dbpedia.org/ontology#>
                     PREFIX  owl: <http://www.w3.org/2002/07/owl#>
                     
-                    SELECT ?pobl ?nameMuni
+                    SELECT ?pobl ?nameMuni ?wiki
                         WHERE{{
                             ?group cap:liveIn ?muni.
                             ?muni cap:hasNameMunicipality ?nameMuni
                                 FILTER (?nameMuni = "{municipio}").
+                            ?muni owl:sameAs ?wiki.
                             ?group cap:minAge ?min
                                 FILTER (?min = "{min}"^^xsd:int).
                             ?group cap:maxAge ?max
@@ -178,7 +160,41 @@ class Colegios:
             for row in gres:
                 nomMuni = row[1]
                 numPobl = numPobl + int(row[0])
-        resultado = {'numPobl': numPobl, 'nomMuni': nomMuni}
+                wikidata = row[2]
+
+        auxWiki = wikidata.replace("https://wikidata.org/entity/", "")
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+
+        sparql.setQuery(f"""
+                        PREFIX wd: <http://www.wikidata.org/entity/>
+                        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+                        SELECT ?coords ?area
+                            WHERE {{
+                                wd:{auxWiki} wdt:P625 ?coords.
+                                wd:{auxWiki} wdt:P2046 ?area
+                            }}
+                        """)
+        try:
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            coords = results['results']['bindings'][0]['coords']['value']
+            coords = coords.replace('Point(', "")
+            coords = coords.replace(')', "")
+            auxCoord = coords
+            auxDic['xCoord'] = coords.replace(' 40.534166666', "")
+            auxDic['yCoord'] = auxCoord.replace('-3.480833333 ', "")
+            area = results['results']['bindings'][0]['area']['value']
+            auxDic['area'] = area
+        except:
+            print(Exception)
+
+        auxDic['densidad'] = numPobl / float(area)
+        auxDic['numPobl'] = numPobl
+        auxDic['nomMuni'] = nomMuni
+        auxDic['sexo'] = sexo
+        auxDic['edad'] = f"{edMin} a {edMax}"
+        resultado.append(auxDic)
         return resultado
 
     def buscarIntAux(self, min, max):
@@ -196,12 +212,44 @@ class Colegios:
             y = y - 5
         return [arrMin, arrMax]
 
+    def completaRowAux(self, row):
+        auxDic = {'name': row[0],
+                  'calle': row[1] + " " + row[2] + ", " + row[3],
+                  'xCoord': float(row[4].toPython()),
+                  'yCoord': float(row[5].toPython()),
+                  'municipio': row[7],
+                  'tipo': row[8],
+                  'titula': row[9],
+                  'codPost': row[10],
+                  'url': row[11].toPython()
+                  }
+        aux = row[6].replace("https://wikidata.org/entity/", "")
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 
-# aux = Colegios()
-# aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
+        sparql.setQuery(f"""
+                        PREFIX wd: <http://www.wikidata.org/entity/>
+                        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+                        SELECT ?flag
+                            WHERE {{
+                                wd:{aux} wdt:P41 ?flag
+                            }}
+                        """)
+        try:
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            svg = results['results']['bindings'][0]['flag']['value']
+            auxDic['svg'] = svg
+        except:
+            print(Exception)
+        return auxDic
+
+
+#aux = Colegios()
+#print(aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50))
 # print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
 #
-# aux = Colegios()
-# aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 29)
+aux = Colegios()
+print(aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 9))
 #aux = Colegios()
-#print(aux.nombreColegio("SAN BLAS"))
+#print(aux.nombreColegio("APOSTOL"))
