@@ -225,7 +225,7 @@ class Colegios:
 
         httpUrl = row[11].toPython()
 
-        if "https://" or "http://" in httpUrl:
+        if not "https://" or not "http://" in httpUrl:
             httpUrl = ''.join(("https://", httpUrl))
 
         auxDic = {'name': row[0],
