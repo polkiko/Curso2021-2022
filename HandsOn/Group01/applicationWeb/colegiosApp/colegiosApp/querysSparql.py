@@ -1,8 +1,6 @@
 # Querys Sparql
 import rdflib
-from SPARQLWrapper import SPARQLWrapper, JSON, XML
-from rdflib.plugins.sparql import prepareQuery
-import json
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 class Colegios:
     def __init__(self):
@@ -258,12 +256,3 @@ class Colegios:
         except:
             print(Exception)
         return auxDic
-
-
-# aux = Colegios()
-# aux.nombreColAvanzada('Educación Infantil', 'Privado', 'Madrid', '28027', 50)
-# print(aux.nombreColAvanzada('Otros', 'Todos', 'Madrid', '', 50))
-# aux = Colegios()
-# print(aux.numeroPoblacion('Madrid', 'Ambos', 0, 4))
-aux = Colegios()
-print(aux.nombreColegio("ABETITOS"))

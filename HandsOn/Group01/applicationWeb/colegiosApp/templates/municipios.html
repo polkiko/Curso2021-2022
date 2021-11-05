@@ -114,8 +114,8 @@
                     var municipio = JSON.parse("{{jsonList|escapejs}}");
                     for (let i = 0; i < municipio.length; i++) {
                         varXml = '<b>Municipio:</b> ' + municipio[i]["nomMuni"] + '<br>' +
-                            '<b>Población:</b> ' + municipio[i]["numPobl"] + ' personas' + '<br>' +
-                            '<b>Densidad:</b> ' + municipio[i]["densidad"] + ' personas / Km²'+ ' <br>' +
+                            '<b>Población:</b> ' + municipio[i]["numPobl"] + ' habitantes' + '<br>' +
+                            '<b>Densidad:</b> ' + municipio[i]["densidad"] + ' habitantes / Km²'+ ' <br>' +
                             '<b>Edad:</b> ' + municipio[i]["edad"] + ' años' + '<br>' +
                             '<b>Sexo:</b> ' + municipio[i]["sexo"] + '<br>';
                         L.marker([municipio[i]["yCoord"], municipio[i]["xCoord"]]).addTo(map).bindPopup(varXml);
@@ -218,7 +218,7 @@
                                         <thead>
                                         <tr>
                                             <th>Municipio</th>
-                                            <th>Poblacion</th>
+                                            <th>Población</th>
                                         </tr>
                                         </thead>
                                         <tbody>
