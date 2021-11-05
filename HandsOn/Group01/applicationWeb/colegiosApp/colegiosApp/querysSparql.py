@@ -23,20 +23,24 @@ class Colegios:
         PREFIX  dbo: <http://dbpedia.org/ontology#>
         PREFIX  owl: <http://www.w3.org/2002/07/owl#>
 
-        SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?municipio
+        SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?nomMuni ?tipo ?tit ?cod ?url
             WHERE{{
             ?centro cap:hasAddress ?calle.
             ?calle cap:hasNameAddress ?nomCalle.
             ?calle cap:hasType ?tipoVia.
             ?calle cap:hasNumber ?numCalle.
+            ?calle cap:hasPostalCode ?cod.
             ?centro cap:xCoordinate ?x.
             ?centro cap:yCoordinate ?y.
-            ?centro cap:nameSchool ?name.
+            ?centro cap:nameSchool ?name
+                FILTER regex(?name , "{nombre}").
             ?centro cap:ownMunicipality ?muni.
+            ?muni cap:hasNameMunicipality ?nomMuni.  
             ?muni owl:sameAs ?wikidata.
             ?centro cap:idSchool ?id.
-            ?muni cap:hasNameMunicipality ?municipio.
-               FILTER regex(?name , "{nombre}").
+            ?centro cap:hasTypeSchool ?tipo.
+            ?centro cap:ownership ?tit.
+            ?centro cap:urlSchool ?url.
         }}  GROUP BY ?id ORDER BY ?name
         """
         gres = g.query(q)
@@ -47,7 +51,11 @@ class Colegios:
                       'calle': row[1] + " " + row[2] + ", " + row[3],
                       'xCoord': float(row[4].toPython()),
                       'yCoord': float(row[5].toPython()),
-                      'municipio': row[7]
+                      'municipio': row[7],
+                      'tipo': row[8],
+                      'titula': row[9],
+                      'codPost': row[10],
+                      'url': row[11].toPython()
                       }
             aux = row[6].replace("https://wikidata.org/entity/", "")
             sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
@@ -61,14 +69,11 @@ class Colegios:
                     wd:{aux} wdt:P41 ?flag
                 }}
             """)
-            try:
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
-                svg = results['results']['bindings'][0]['flag']['value']
-                auxDic['svg'] = svg
-                resultado.append(auxDic)
-            except:
-                print(Exception)
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            svg = results['results']['bindings'][0]['flag']['value']
+            auxDic['svg'] = svg
+            resultado.append(auxDic)
         return resultado
 
     def nombreColAvanzada(self, tipo, titularidad, municipio, codigoPostal, limite):
@@ -112,7 +117,7 @@ class Colegios:
                 PREFIX  dbo: <http://dbpedia.org/ontology#>
                 PREFIX  owl: <http://www.w3.org/2002/07/owl#>
 
-                SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y
+                SELECT ?name ?tipoVia ?nomCalle ?numCalle ?x ?y ?wikidata ?nomMuni ?tipo ?tit ?cod ?url
                     WHERE{{
                     ?centro cap:idSchool ?id.
                     ?centro cap:hasAddress ?calle.
@@ -198,5 +203,5 @@ class Colegios:
 #
 # aux = Colegios()
 # aux.numeroPoblacion('Ajalvir', 'Hombre', 5, 29)
-aux = Colegios()
-print(aux.nombreColegio("SAN BLAS"))
+#aux = Colegios()
+#print(aux.nombreColegio("SAN BLAS"))

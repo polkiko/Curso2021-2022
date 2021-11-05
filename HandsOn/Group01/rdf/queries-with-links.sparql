@@ -17,9 +17,9 @@ SELECT DISTINCT ?muni
     ?muni cap:numPeople ?emp
         FILTER (?emp > "200"^^xsd:int).
     ?muni cap:maxAge ?max
-        FILTER (?max = "5"^^xsd:int).
+        FILTER (?max = "9"^^xsd:int).
     ?muni cap:minAge ?min
-        FILTER (?min = "9"^^xsd:int).
+        FILTER (?min = "5"^^xsd:int).
     ?muni cap:hasGender ?gen
         FILTER (?gen = "Mujer").
 } LIMIT 100
