@@ -126,11 +126,11 @@
                     var listaColegios = JSON.parse("{{jsonList|escapejs}}");
                     for (let i = 0; i < listaColegios.length; i++) {
                         varXml = '<b>Nombre Colegio:</b> ' + listaColegios[i]["name"] + '<br>' +
-                            '<b>Calle:</b> ' + listaColegios[i]["calle"] +'<br>' +
-                            '<b>Código Postal:</b> ' + listaColegios[i]["codPost"] +'<br>' +
-                            '<b>Municipio:</b> ' + listaColegios[i]["municipio"] +'<br>' +
-                            '<b>Tipo de Colegio:</b> ' + listaColegios[i]["tipo"] +'<br>' +
-                            '<b>Titularidad:</b> ' + listaColegios[i]["titula"] +'<br>';
+                            '<b>Calle:</b> ' + listaColegios[i]["calle"] + '<br>' +
+                            '<b>Código Postal:</b> ' + listaColegios[i]["codPost"] + '<br>' +
+                            '<b>Municipio:</b> ' + listaColegios[i]["municipio"] + '<br>' +
+                            '<b>Tipo de Colegio:</b> ' + listaColegios[i]["tipo"] + '<br>' +
+                            '<b>Titularidad:</b> ' + listaColegios[i]["titula"] + '<br>';
 
                         L.marker([listaColegios[i]["yCoord"], listaColegios[i]["xCoord"]]).addTo(map).bindPopup(varXml);
                     }
@@ -335,13 +335,17 @@
                                         <tbody>
                                         {% for item in colList2 %}
                                             <tr>
-                                                {% if item.url == "Sin Web" %}
+                                                {% if item.url == "Sin web" %}
                                                     <td data-label="Name">{{ item.name }}</td>
                                                 {% else %}
                                                     <td data-label="Name"><a href="{{ item.url }}">{{ item.name }}</a>
                                                     </td>
                                                 {% endif %}
                                                 <td data-label="Calle">{{ item.calle }}</td>
+                                                <td data-label="Calle">
+                                                    <img src="{{ item.svg }}" alt="img" title="{{ item.municipio }}"
+                                                         style="width: 150px;height: 100px"/>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
