@@ -132,6 +132,7 @@ class Colegios:
             qsexo = f"""?group cap:hasGender ?sexo
                         FILTER (?sexo = "{sexo}").
                         """
+        var = 0
         for min, max in zip(arrMin, arrMax):
             g = rdflib.Graph()
             g.parse("../../rdf/output-with-links.nt")
@@ -155,15 +156,17 @@ class Colegios:
                             """ + qsexo + f"""}}
                     """
             gres = g.query(qfinal)
+
             for row in gres:
                 nomMuni = row[1]
                 numPobl = numPobl + int(row[0])
                 wikidata = row[2]
+                var = 1
+        if var == 1:
+            auxWiki = wikidata.replace("https://wikidata.org/entity/", "")
+            sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 
-        auxWiki = wikidata.replace("https://wikidata.org/entity/", "")
-        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-
-        sparql.setQuery(f"""
+            sparql.setQuery(f"""
                         PREFIX wd: <http://www.wikidata.org/entity/>
                         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 
@@ -173,33 +176,33 @@ class Colegios:
                                 wd:{auxWiki} wdt:P2046 ?area
                             }}
                         """)
-        try:
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            coords = results['results']['bindings'][0]['coords']['value']
-            coords = coords.replace('Point(', "")
-            coords = coords.replace(')', "")
-            x = ""
-            for a in coords:
-                if a != " ":
-                    x = x + a
-                else:
-                    break
-            coords = coords.replace(x + " ", "")
-            y = coords
-            auxDic['xCoord'] = x
-            auxDic['yCoord'] = y
-            area = results['results']['bindings'][0]['area']['value']
-            auxDic['area'] = area
-        except:
-            print(Exception)
+            try:
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+                coords = results['results']['bindings'][0]['coords']['value']
+                coords = coords.replace('Point(', "")
+                coords = coords.replace(')', "")
+                x = ""
+                for a in coords:
+                    if a != " ":
+                        x = x + a
+                    else:
+                        break
+                coords = coords.replace(x + " ", "")
+                y = coords
+                auxDic['xCoord'] = x
+                auxDic['yCoord'] = y
+                area = results['results']['bindings'][0]['area']['value']
+                auxDic['area'] = area
+            except:
+                print(Exception)
 
-        auxDic['densidad'] = '{:.2f}'.format(numPobl / float(area))
-        auxDic['numPobl'] = numPobl
-        auxDic['nomMuni'] = nomMuni
-        auxDic['sexo'] = sexo
-        auxDic['edad'] = f"{edMin} a {edMax}"
-        resultado.append(auxDic)
+            auxDic['densidad'] = '{:.2f}'.format(numPobl / float(area))
+            auxDic['numPobl'] = numPobl
+            auxDic['nomMuni'] = nomMuni
+            auxDic['sexo'] = sexo
+            auxDic['edad'] = f"{edMin} a {edMax}"
+            resultado.append(auxDic)
         return resultado
 
     def buscarIntAux(self, min, max):

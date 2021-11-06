@@ -83,6 +83,20 @@
                     </div>
                 </div>
             </div>
+            {% if nMuni == 0 %}
+                <div class="card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2><b>No se encontraron Municipios</b></h2>
+                            </div>
+                            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-map mdi-48px"></i></span>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
         <!-- Tarjeta Mapa -->
         <div class="card mb-6">
@@ -115,7 +129,7 @@
                     for (let i = 0; i < municipio.length; i++) {
                         varXml = '<b>Municipio:</b> ' + municipio[i]["nomMuni"] + '<br>' +
                             '<b>Población:</b> ' + municipio[i]["numPobl"] + ' habitantes' + '<br>' +
-                            '<b>Densidad:</b> ' + municipio[i]["densidad"] + ' habitantes / Km²'+ ' <br>' +
+                            '<b>Densidad:</b> ' + municipio[i]["densidad"] + ' habitantes / Km²' + ' <br>' +
                             '<b>Edad:</b> ' + municipio[i]["edad"] + ' años' + '<br>' +
                             '<b>Sexo:</b> ' + municipio[i]["sexo"] + '<br>';
                         L.marker([municipio[i]["yCoord"], municipio[i]["xCoord"]]).addTo(map).bindPopup(varXml);
@@ -208,36 +222,36 @@
                             </button>
                         </div>
                     </div>
-                {% if munList %}
-                    <div class="field">
-                        <label class="label">Resultados</label>
-                        <div class="field-body">
-                            <div class="card has-table">
-                                <div class="card-content">
-                                    <table id="nombreCol">
-                                        <thead>
-                                        <tr>
-                                            <th>Municipio</th>
-                                            <th>Población</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for item in munList %}
+                    {% if munList %}
+                        <div class="field">
+                            <label class="label">Resultados</label>
+                            <div class="field-body">
+                                <div class="card has-table">
+                                    <div class="card-content">
+                                        <table id="nombreCol">
+                                            <thead>
                                             <tr>
-                                                <td data-label="Name">{{ item.nomMuni }}</td>
-                                                <td data-label="Calle">
-                                                    {{ item.numPobl }}
-                                                </td>
+                                                <th>Municipio</th>
+                                                <th>Población</th>
                                             </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            {% for item in munList %}
+                                                <tr>
+                                                    <td data-label="Name">{{ item.nomMuni }}</td>
+                                                    <td data-label="Calle">
+                                                        {{ item.numPobl }}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
 
                 </form>
             </div>
