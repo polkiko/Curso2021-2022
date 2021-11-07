@@ -53,11 +53,11 @@ map:om_005 a rr:ObjectMap;
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
 map:om_006 a rr:ObjectMap;
-    rml:reference "min_edad";
+    rml:reference "max_edad";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#int>.
 map:om_007 a rr:ObjectMap;
-    rml:reference "max_edad";
+    rml:reference "min_edad";
     rr:termType rr:Literal;
     rr:datatype <http://www.w3.org/2001/XMLSchema#int>.
 map:om_008 a rr:ObjectMap;
@@ -112,11 +112,11 @@ map:om_020 a rr:ObjectMap;
 map:om_021 a rr:ObjectMap;
     rml:reference "direccion_coor_x";
     rr:termType rr:Literal;
-    rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
+    rr:datatype <http://www.w3.org/2001/XMLSchema#decimal>.
 map:om_022 a rr:ObjectMap;
     rml:reference "direccion_coor_y";
     rr:termType rr:Literal;
-    rr:datatype <http://www.w3.org/2001/XMLSchema#string>.
+    rr:datatype <http://www.w3.org/2001/XMLSchema#decimal>.
 map:om_023 a rr:ObjectMap;
     rr:parentTriplesMap map:map_address_000;
     rr:joinCondition map:jc_001.

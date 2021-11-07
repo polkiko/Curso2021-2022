@@ -128,13 +128,13 @@
 ###  http://www.colegiosapp.org/ontology#xCoordinate
 :xCoordinate rdf:type owl:DatatypeProperty ;
              rdfs:domain dbo:School ;
-             rdfs:range xsd:string .
+             rdfs:range xsd:decimal .
 
 
 ###  http://www.colegiosapp.org/ontology#yCoordinate
 :yCoordinate rdf:type owl:DatatypeProperty ;
              rdfs:domain dbo:School ;
-             rdfs:range xsd:string .
+             rdfs:range xsd:decimal .
 
 
 #################################################################
