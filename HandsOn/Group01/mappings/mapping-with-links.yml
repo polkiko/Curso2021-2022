@@ -57,8 +57,8 @@ mappings:
       - [ cap:idSchool, $(centro_codigo), xsd:string ]
       - [ cap:ownership, $(centro_titularidad), xsd:string ]
       - [ cap:urlSchool, $(url_colegio), xsd:anyURI ]
-      - [ cap:xCoordinate, $(direccion_coor_x), xsd:string ]
-      - [ cap:yCoordinate, $(direccion_coor_y), xsd:string ]
+      - [ cap:xCoordinate, $(direccion_coor_x), xsd:decimal ]
+      - [ cap:yCoordinate, $(direccion_coor_y), xsd:decimal ]
       - p: cap:hasAddress
         o:
           - mapping: address
