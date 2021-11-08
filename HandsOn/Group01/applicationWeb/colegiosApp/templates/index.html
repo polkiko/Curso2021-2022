@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Colegios App {% endblock %}</title>
     <link rel="stylesheet" href="{% static "css/main.css" %}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -46,14 +47,109 @@
 
         </div>
     </section>
+     <table>
+                    <tr>
+                        <td><img class="img-center" src="../static/img/logoUPM.jpg" width="400"></td>
+                        <td><img src="../static/img/logoSemantic.gif" width="400"></td>
+                    </tr>
+                </table>
     <section class="section main-section">
         <div class="card mb-6">
             <header class="card-header">
                 <p class="card-header-title">
-                    <span class="icon"><i class="mdi mdi-android"></i></span>
-                    Descripción
+                   <span class="icon"> <i class="fa fa-question"></i></span>
+                    Secciones ColegiosApp
                 </p>
             </header>
+
+            <button class="accordion" >Descripción de la aplicación</button>
+            <div class="panel">
+                <p>ColegiosApp es una aplicación que permite al usuario utilizar diversas funciones para buscar información sobre los colegios y municipios de la Comunidad de Madrid.</p>
+            </div>
+
+            <button class="accordion">Explicación de Zona Colegios</button>
+            <div class="panel">
+                Zona Colegios se compone de tres apartados:<br><br/>
+
+               <ul>
+                   <li>
+                       <b>Búsqueda simple: </b><br>En sección podremos buscar un colegio en función de su nombre.
+                       <br>Los datos que podemos ver sobre los colegios son los siguientes:<br><br/>
+                       <img src="../static/img/infoColes.png">
+                   </li>
+                   <br/>
+                   <li>
+                       <b>Búsqueda personalizada: </b><br>Este apartado nos permite realizar búsquedas precisas en función a los siguientes parámetros:<br><br/>
+                       <ul class="features">
+                           <li>Tipo de centro</li>
+                           <li>Titularidad del centro</li>
+                           <li>Municipio</li>
+                           <li>Código postal</li>
+                           <li>Límite de resultados</li>
+                       </ul>
+                       <br/>
+                   </li>
+                   <li>
+                       <b>Mapa: </b><br>Esta sección nos permite visualizar en un mapa la localización de cada colegio.
+                       Además, si hacemos click en el colegio dentro del mapa saldrá un desplegable con la información de dicho centro.<br><br/>
+                       <table>
+                           <tr>
+                               <td><img src="../static/img/mapa1.png"></td>
+                               <td><img src="../static/img/mapa2.png"></td>
+                           </tr>
+                       </table>
+
+                   </li>
+               </ul>
+            </div>
+
+            <button class="accordion">Explicación de Zona Municipios</button>
+            <div class="panel">
+                Esta sección nos permite buscar Municipios de la Comunidad de Madrid y datos relevantes de los mismos.<br>
+                Para hacer una consulta en este apartado debemos buscar en base a los siguientes campos.<br><br>
+                <ul class="features">
+                    <li>Nombre del municipio</li>
+                    <li>Sexo</li>
+                    <li>Municipio</li>
+                    <li>Edad mínima en años</li>
+                    <li>Edad máxima en años</li>
+                </ul>
+                <br>
+                Una vez realizada la consulta, nos aparecerá la localización del municipio en el mapa junto con sus
+                datos más relevantes, así como una tarjeta con la información de la población perteneciente al rango de edades seleccionado.<br><br>
+                <table>
+                    <tr>
+                        <td><img src="../static/img/infoMunicipio.png"></td>
+                        <td><img src="../static/img/resMunicipio.png"></td>
+                    </tr>
+                </table>
+
+            </div>
+            <button class="accordion">Integrantes del Grupo 1</button>
+            <div class="panel">
+                <ul>
+                   <li>
+                       <b>Álvaro Montorio Piñeiro: </b>180252<br>Github: <a href="https://github.com/alvaromontorio" style="color:blue;">alvaromontorio</a>
+                   </li>
+                     <br/>
+                   <li>
+                       <b>Valentín Musat: </b>180298<br>Github: <a href="https://github.com/VMusat" style="color:blue;">VMusat</a>
+                   </li>
+                     <br/>
+                   <li>
+                       <b>Jesús Jeréz Ballesteros: </b>180030<br>Github: <a href="https://github.com/polkiko" style="color:blue;">polkiko</a>
+                   </li>
+                     <br/>
+                      <li>
+                       <b>Jorge García Martín: </b>180374<br>Github: <a href="https://github.com/gor2000" style="color:blue;">gor2000</a>
+                   </li>
+                     <br/>
+                    <li>
+                       <b>Álvaro Panes Sánchez: </b>180478<br>Github: <a href="https://github.com/Alvaropanessan" style="color:blue;">Alvaropanessan</a>
+                   </li>
+                     <br/>
+               </ul>
+            </div>
             <div class="card-content">
                 <div class="chart-area">
                     <div class="h-full">
@@ -82,5 +178,21 @@
     {% endblock %}
 </div>
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("shown");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
 </body>
 </html>
