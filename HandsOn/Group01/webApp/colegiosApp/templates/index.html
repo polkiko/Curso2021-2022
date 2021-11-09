@@ -18,6 +18,14 @@
             <p class="menu-label">General</p>
             <ul class="menu-list">
                 <li class="active">
+                    <a href="{% url 'index' %}">
+                        <span class="icon"> <i class="mdi mdi-home"></i></span>
+                        <span class="menu-item-label">Inicio</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-list">
+                <li class="active">
                     <a href="{% url 'colegios' %}">
                         <span class="icon"> <i class="mdi mdi-school"></i></span>
                         <span class="menu-item-label">Zona Colegios</span>
@@ -74,7 +82,7 @@
 
                 <ul>
                     <li>
-                        <b>Búsqueda simple: </b><br>En sección podremos buscar un colegio en función de su nombre.
+                        <b>Búsqueda simple: </b><br>En esta sección podremos buscar un colegio en función de su nombre.
                         <br>Los datos que podemos ver sobre los colegios son los siguientes:<br><br>
                         <img src="{% static "img/infoColes.png" %}" alt="">
 
@@ -121,7 +129,8 @@
                 </ul>
                 <br>
                 Una vez realizada la consulta, nos aparecerá la localización del municipio en el mapa junto con sus
-                datos más relevantes (población, densidad), así como una tarjeta con la información de la población perteneciente al rango de
+                datos más relevantes (población, densidad), así como una tarjeta con la información de la población
+                perteneciente al rango de
                 edades seleccionado.<br><br>
                 <table>
                     <tr>
@@ -180,11 +189,13 @@
 
     {% block footer_block %}
         <!-- Main Footer -->
-        <footer class="text-center footer-style" style="position:fixed; bottom: 1px">
+        <footer class="text-center footer-style"
+                style="position:fixed; bottom: 0px;width: 100%;border-top: 1px solid #bfbbbb4f;z-index: 1;">
             <div class="container">
-                <p>Diseñado por el Grupo 01</p>
+                <p>ColegiosApp - Grupo 01</p>
             </div>
         </footer>
+
 
     {% endblock %}
 </div>
