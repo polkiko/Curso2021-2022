@@ -9,8 +9,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
     <script src="{% static 'js/scripts.js' %}"></script>
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
@@ -204,7 +206,7 @@
                                             <td data-label="Name"><a href="{{ item.url }}">{{ item.name }}</a></td>
                                         {% endif %}
                                         <td data-label="Calle">{{ item.calle }}</td>
-                                        <td data-label="Calle">
+                                        <td data-label="Municipio">
                                             <img src="{{ item.svg }}" alt="img" title="{{ item.municipio }}"
                                                  style="width: 150px;height: 100px"/>
                                         </td>
@@ -331,11 +333,12 @@
                         <div class="field-body">
                             <div class="card has-table">
                                 <div class="card-content">
-                                    <table id="nombreCol2">
+                                    <table id="nombreColAdv" class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Calle</th>
+                                            <th>Municipio</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -348,7 +351,7 @@
                                                     </td>
                                                 {% endif %}
                                                 <td data-label="Calle">{{ item.calle }}</td>
-                                                <td data-label="Calle">
+                                                <td data-label="Municipio">
                                                     <img src="{{ item.svg }}" alt="img" title="{{ item.municipio }}"
                                                          style="width: 150px;height: 100px"/>
                                                 </td>
@@ -357,16 +360,8 @@
                                         </tbody>
                                     </table>
                                     <script>
-                                        $(function () {
-                                            $('#nombreCol2').DataTable({
-                                                "paging": true,
-                                                "lengthChange": false,
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": true,
-                                                "autoWidth": false,
-                                                "responsive": true,
-                                            });
+                                        $(document).ready(function () {
+                                            $('#nombreColAdv').DataTable();
                                         });
                                     </script>
                                 </div>
